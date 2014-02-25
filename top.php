@@ -4,35 +4,34 @@
 	require_once("./common.php");
 	// セッションチェック（まだ未実装）
 	// ログイン選択
-	$_SESSION['uid'] = 1;
+
+	//$_SESSION['uid'] = 1;
+	$uid = 0;
 	if ( isset($_SESSION['uid']) ){
 		$uid = $_SESSION['uid'];
-	}else{
-		$uid = 0;		
 	}
-	$uid =1 ;
+//	$uid =1 ;
 
 	// セッション更新
 	if ( isset($_GET['buy']) ){
-		echo "<p>カートに追加</p>";
-		if ( isset($aaa['buy']) ){
-			echo "<p>bbb</p>";			
-			$ary = $aaa['buy'];
-			print_r ($ary);
+		if ( isset($_SESSION['SID']) ){
+			$ary = $_SESSION['SID'];
 		}else{
 			$ary = array();
 		}
-		$aaa['buy'] = $ary;
-		print_r( $ary );
-		foreach ( $aaa as $key => $value ){
-		  echo "$key -> $value";
-		  if ( $key == 'buy' ){
-			  	echo "<p>aaa</p>";
-			  foreach( $value as $sid ){
-			  	echo "$sid";
-			  }		  	
-		  }
-		}
+		array_push( $ary, $_GET['buy']);
+		$ary = array_unique($ary);
+		$_SESSION['SID'] = $ary;
+
+		// foreach ( $_SESSION as $key => $value ){
+		//   echo "$key -> $value";
+		//   if ( $key == 'SID' ){
+		// 	  foreach( $value as $sid ){
+		// 	  	echo "$sid, ";
+		// 	  }		  
+		//   }
+		// }
+
 	}
 
 ?>
