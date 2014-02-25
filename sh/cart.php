@@ -1,5 +1,19 @@
-<?php 
-	require_once("./common.php");
+<?php
+	session_start();
+	setcookie(session_name(), session_id(), time()+60);
+	require_once("../common.php");
+	// debug
+	$_SESSION['UID'] = 1;
+	if ( isset($_GET['debug']) ) {
+		$_SESSION['SID'] = array(5, 6, 7, 8, 9);
+	}
+	if ( ! isset($_SESSION['UID']) ) {
+		header("Location: ../login.php");
+		exit;
+	} else 	if ( getGID($_SESSION['UID']) != 1 ) {
+		header("Location: ../maintenance.php");
+		exit;
+	}
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -14,6 +28,71 @@
 <!-- ヘッダー -->
 
 <!-- コンテンツ -->
+<h2>カート一覧</h2>
+<!-- delオプション指定時 -->
+<?php
+	if ( isset( $_GET['del'] ) ) {
+		$index = array_search( $_GET['del'], $_SESSION['SID']);
+		if ( $index !== FALSE ) {
+			// echo "{$index}を削除しました<br>";
+			unset( $_SESSION['SID'][$index] );
+		}
+	}
+?>
+<!-- セッションからカート情報を取得 -->
+<?php
+	$cart = $_SESSION['SID'];
+?>
+
+<!-- テーブル表示 -->
+<?php
+if ( count($cart) > 0 ) {
+	echo "<table border=1>\n";
+	echo '<thead>';
+	echo '<th>ID(デバッグ)</th>'; // デバッグ
+	echo '<th>商品名</th>';
+	echo '<th>価格</th>';
+	echo '<th>削除</th>';
+	echo "</thead>\n";
+	foreach ( $cart as $sid ) {
+		$db = db();
+		$sql = $db->prepare("SELECT * FROM shouhin WHERE sid=:sid");
+		$sql->bindValue(':sid', $sid);
+		$sql->execute();
+		$data = $sql->fetch();
+		echo "<tr>";
+		echo "<td>", $data['sid'], "</td>"; // デバッグ
+		$sname = (isset($data['sname'])) ? htmlentities(
+			$data['sname'],ENT_QUOTES,'UTF-8') : "";
+		echo "<td>", $sname, "</td>";
+		echo "<td>", $data['kakaku'], "</td>";
+		echo '<td><a href="cart.php?del=',
+			$data['sid'], '">削除</a></td>';
+		echo "</tr>\n";
+		$sql = null; // オブジェクトの解放
+	}
+	echo "</table>";
+// 下のelseに続く
+?>
+
+<!--  -->
+<form method="GET" action="cart_check.php">
+	送金タイプ:
+	<select name="s_type">
+		<option value="" selected></option>
+		<option value="振込">振込</option>
+		<option value="代引き">代引き</option>
+	</select><br>
+	<input type="submit" value="確認">
+</form>
+
+<?php
+// 続き
+} else {
+	echo 'カートは空です。<br>';
+}
+?>
+
 
 </body>
 </html>
