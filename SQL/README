@@ -1,0 +1,7 @@
+
+cmd.exe> mysql -u root -p
+Enter password: ****
+
+mysql> source tsukasa_include.sql
+mysql> source tsukasa_data_golden.sql
+
