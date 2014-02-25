@@ -54,24 +54,29 @@ if ( count($cart) > 0 ) {
 	echo '<th>価格</th>';
 	echo '<th>削除</th>';
 	echo "</thead>\n";
+	$sum = 0;
 	foreach ( $cart as $sid ) {
 		$db = db();
 		$sql = $db->prepare("SELECT * FROM shouhin WHERE sid=:sid");
 		$sql->bindValue(':sid', $sid);
 		$sql->execute();
 		$data = $sql->fetch();
-		echo "<tr>";
-		echo "<td>", $data['sid'], "</td>"; // デバッグ
-		$sname = (isset($data['sname'])) ? htmlentities(
-			$data['sname'],ENT_QUOTES,'UTF-8') : "";
-		echo "<td>", $sname, "</td>";
-		echo "<td>", $data['kakaku'], "</td>";
-		echo '<td><a href="cart.php?del=',
-			$data['sid'], '">削除</a></td>';
-		echo "</tr>\n";
+		if ( $data ) {
+			echo "<tr>";
+			echo "<td>", $data['sid'], "</td>"; // デバッグ
+			$sname = (isset($data['sname'])) ? htmlentities(
+				$data['sname'],ENT_QUOTES,'UTF-8') : "";
+			echo "<td>", $sname, "</td>";
+			echo "<td>", $data['kakaku'], "</td>";
+			echo '<td><a href="cart.php?del=',
+				$data['sid'], '">削除</a></td>';
+			echo "</tr>\n";
+			$sum += $data['kakaku'];
+		}
 		$sql = null; // オブジェクトの解放
 	}
 	echo "</table>";
+	echo "<p>小計金額：{$sum} 円</p>"
 // 下のelseに続く
 ?>
 
@@ -90,9 +95,9 @@ if ( count($cart) > 0 ) {
 // 続き
 } else {
 	echo 'カートは空です。<br>';
+	echo '<a href="../top.php">商品一覧へ戻る</a><br>';
 }
 ?>
-
 
 </body>
 </html>
