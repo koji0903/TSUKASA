@@ -12,8 +12,29 @@
 <body>
 <h1>TSUKASA　Shop</h1>
 <!-- ヘッダー -->
-
+	disp_header();
 <!-- コンテンツ -->
+	<?php
+		$uname    = htmlentities($_GET[ 'uname' ],ENT_QUOTES,'UTF-8');
+		$address  = htmlentities($_GET[ 'address' ],ENT_QUOTES,'UTF-8');
+		$mail     = htmlentities($_GET[ 'mail' ],ENT_QUOTES,'UTF-8');
+		$password = htmlentities($_GET['password'],ENT_QUOTES,'UTF-8');
+		
+		echo "<p>氏名：", $uname, "</p>";
+		echo "<p>住所：", $address, "</p>";
+		echo "<p>メールアドレス：", $password, "</p>";
+		
+	?>
+	<form action="registry_check2.php" method="get">
+		<input type="hidden" name="uname" value= <?php echo $uname;?>><br>
+		<input type="hidden" name="address" value= <?php echo $address;?>><br>
+		<input type="hidden" name="mail" value= <?php echo $mail;?>><br>
+		<input type="hidden" name="password"><br>
+		<input type="submit" value="OK">
+	</form>
+	<form action="registry.php" method="get">
+		<input type="submit" value="NG">
+	</form>
 
 </body>
 </html>

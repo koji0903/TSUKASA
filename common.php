@@ -21,4 +21,25 @@ function getGID($uid)
 		// データベースアクセス失敗
 	}
 }
+// ヘッダーの表示関数
+function disp_header()
+{
+	if( isset($_SESSION['uid']) ){
+		$gid = getGID($_SESSION['uid']);
+		if($gid == 1){
+			echo '<p><a href="./sh/cart.php">', "カート", '</a></p><br>';
+			echo '<p><a href="./top.php">商品一覧</a></p><br>';
+			echo '<p><a href="./sh/mypage.php">マイページ</a></p><br>';
+			echo '<p><a href="./logout.php">ログアウト</a></p><br>';
+		}
+		else{
+			echo '<p><a href="./maintenance.php">管理者ページ</a></p><br>';
+			echo '<p><a href="./logout.php">ログアウト</a></p><br>';
+		}
+	}
+	else{
+		echo '<p><a href="./login.php">ログイン</a></p>';
+	}
+}
+
 ?>
