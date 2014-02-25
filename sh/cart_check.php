@@ -32,17 +32,46 @@
 
 <!-- コンテンツ -->
 <?php
-	if ( isset($_GET['s_type']) ){
-		$s_type = $_GET['s_type'];
-	}else{
-		// 送金タイプが選択されていません。
-		header("Location: ./cart_check2.html");
-		exit;
-	}
+	$s_type = "";
+	// if ( isset($_GET['s_type']) ){
+	// 	$s_type = $_GET['s_type'];
+	// }else{
+	// 	// 送金タイプが選択されていません。
+	// 	header("Location: ./cart_check2.html");
+	// 	exit;
+	// }
 
 	// 合計金額の計算
-	$_SESSION['SID'] = array(1,4,5,10);
+	$_SESSION['SID'] = array(1,10);
+	$sids = $_SESSION['SID'];
+	$db = db();
+
+	$shoukei = 0;
+	foreach( $sids as $sid ){
+			$sql = $db->prepare('SELECT kakaku FROM shouhin WHERE sid = ?;');
+			$sql->bindValue(1, $sid);
+			$sql->execute();
+			$data = $sql->fetch();
+			$shoukei += $data['kakaku'];
+	}
+
+	// 送料の計算
+	$souryou = 0;
+	if ( $shoukei < 10000 ){
+		if( $s_type == "furikomi" ){
+			$souryou = 1300;
+		}else{
+			$souryou = 1000;
+		}
+	}
+
+	$total = $shoukei + $souryou;
+	echo "小計： {$shoukei}円<br>";
+	echo "送料： {$souryou}円<br>";
+	echo "---------------<br>";
+	echo "合計：　{$total}円<br>";
 
 ?>
+
 </body>
 </html>
