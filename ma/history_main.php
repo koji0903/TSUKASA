@@ -1,13 +1,13 @@
 <?php
 	require_once("../common.php");
-	// debug
+		// debug
 	$_SESSION['UID'] = 2;
 
 	if ( ! isset($_SESSION['UID']) ) {
-		header("Location: login.php");
+		header("Location: ../login.php");
 		exit;
 	} else 	if ( getGID($_SESSION['UID']) != 0 ) {
-		header("Location: top.php");
+		header("Location: ../top.php");
 		exit;
 	}
 ?>
