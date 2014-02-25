@@ -30,7 +30,9 @@
 try {
 	$db = db();
 
-	$sql = $db->prepare("SELECT * FROM rireki,shouhin,user WHERE shouhin.sid=rireki.sid AND rireki.uid=user.uid ORDER BY hizuke DESC");
+	// WHEREでの結合だとnullが出ないのでLEFT JOINで
+	$sql = $db->prepare("SELECT * FROM rireki LEFT JOIN shouhin ON shouhin.sid=rireki.sid LEFT JOIN user ON rireki.uid=user.uid ORDER BY hizuke DESC");
+
 	$sql->execute();
 	if ( $sql->rowCount() > 0 ) {
 		$all = $sql->fetchall();
