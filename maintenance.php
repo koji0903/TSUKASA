@@ -1,8 +1,9 @@
 <?php
+	session_start();
+	setcookie(session_name(), session_id(), time()+60);
 	require_once("./common.php");
 	// debug
-	$_SESSION['UID'] = 2;
-
+	// $_SESSION['UID'] = 2;
 	if ( ! isset($_SESSION['UID']) ) {
 		header("Location: login.php");
 		exit;
