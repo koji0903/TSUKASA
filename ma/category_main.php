@@ -7,10 +7,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 <meta http-equiv="Content-Style-Type" content="text/css">
-<link rel="stylesheet" href="my.css" content="text/css">
+<link rel="stylesheet" href="../my.css" content="text/css">
 </head>
 <body>
-<h1>TSUKASA　Shop</h1>
+<h1>TSUKASA Shop カテゴリ操作</h1>
 <!-- ヘッダー -->
 <?php
 # デバッグ
@@ -33,8 +33,9 @@ if( $gid != 0 ) {
 	exit;
 
 }
-
-#echo "uid は $uid です";
+#--------------------------------------------------------
+# 追加
+echo "<p><a href=\"category_add.php\">カテゴリ追加</a>";
 #--------------------------------------------------------
 # DB 取得
 #$db = db();
@@ -45,32 +46,41 @@ $db->query("SET NAMES utf8;");
 $sql = $db->prepare('SELECT * FROM category');
 $sql->execute();
 $all = $sql->fetchAll();
-
-echo '</table>';
-echo '<tr>';
-echo '<th>カテゴリ名</th>';
-echo '<th>編集</th>';
-echo '<th>削除</th>';
-echo '</tr>';
-foreach($all as $data) {
-	$tid    = $data['cname'];
-	$cid    = $data['cid'];
-	$shori  = "処理済み";
-	$tcheck = 0; // 未処理
-	if($data['tcheck'] == 0) {
-		$shori  = "未処理";
-		$tcheck = 1; // 処理済み
-	}
-	echo '<tr>';
-	echo "<td><a href=\"todo.php?mode=shori&uid=${uid}&tid=${tid}&tcheck=${tcheck}\">${shori}</a></td>";
-	echo "<td><a href=\"updatetodo.php?uid=${uid}&tid=${tid}&cid=${cid}\">${data['title']}</a></td>";
-	echo "<td>${data['utime']}</td>";
-	echo "<td>${data['cname']}</td>";
-	echo '</tr>';
-}
-echo '</table>';
-
 $sql = null; #オブジェクト解放
+#--------------------------------------------------------
+
+echo "<table>";
+echo "<tr>";
+echo "<th>カテゴリ名</th>";
+echo "<th>編集</th>";
+echo "<th>削除</th>";
+echo "</tr>";
+foreach($all as $data) {
+	$cid    = $data['cid'];
+	$cname  = $data['cname'];
+
+	echo "<tr>";
+	echo "<td>$cid $cname</td>";
+	echo "<td><a href=\"category_edit.php?cid=$cid\">編集</a></td>";
+
+	# オブジェクト作成
+	$sql = $db->prepare('SELECT * FROM shouhin WHERE cid=?');
+	$sql->bindValue(1, $cid);
+	$sql->execute();
+	if( $sql->fetch() ) {
+		# 該当する商品がある場合は何も表示しない
+		echo "<td></td>";
+	}
+	else {
+		# 該当する商品がない場合は 削除 を表示
+		echo "<td><a href=\"category_del.php?cid=$cid\" >削除</td>";
+	}
+	echo "</tr>";
+}
+echo "</table>";
+
+echo "<p></p>";
+echo "<td><a href=\"../maintenance.php\" >管理画面へ</td>";
 ?>
 
 <!-- コンテンツ -->
