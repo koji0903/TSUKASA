@@ -60,7 +60,7 @@ foreach($all as $data) {
 	$cname  = $data['cname'];
 
 	echo "<tr>";
-	echo "<td>$cid $cname</td>";
+	echo "<td>$cname</td>";
 	echo "<td><a href=\"category_edit.php?cid=$cid\">編集</a></td>";
 
 	# オブジェクト作成

@@ -40,35 +40,6 @@ if( isset($_GET['err'] ) ){
 	echo "<p></p>";
 }
 #--------------------------------------------------------
-if( isset($_GET['category']) ){
-	$cate = $_GET['category'];
-
-#--------------------------------------------------------
-# DB 取得
-	#$db = db();
-	$db = new PDO("mysql:dbname=tsukasadb", "root", "root");
-	$db->query("SET NAMES utf8;");
-#--------------------------------------------------------
-# オブジェクト作成
-	$sql = $db->prepare('SELECT * FROM category WHERE=?');
-	$sql->bindValue(1, $cate);
-	$sql->execute();
-	if( $sql->fetch() ) {
-		# 該当する商品がある場合は何も表示しない
-		echo "<td></td>";
-	}
-	else {
-		# 該当する商品がない場合は 削除 を表示
-		echo "<td><a href=\"category_del.php?cid=$cid\" >削除</td>";
-	}
-	$sql->execute();
-$all = $sql->fetchAll();
-$sql = null; #オブジェクト解放
-
-}
-
-
-#--------------------------------------------------------
 echo "<form method=\"GET\" action=\"category_add2.php\">";
 echo "カテゴリ:<input type=\"text\" name=\"cate\"><br>";
 echo "<input type=\"submit\" value=\"追加\">";
