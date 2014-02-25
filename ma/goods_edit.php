@@ -1,5 +1,5 @@
-<?php 
-	require_once("./common.php");
+<?php
+//	require_once("./common.php");
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -14,6 +14,73 @@
 <!-- ヘッダー -->
 
 <!-- コンテンツ -->
+	<?php
+
+		$sid = $_GET['sid'];
+
+    $db = new PDO("mysql:dbname=tsukasadb","root","root");
+    $db->query('SET NAMES utf8;');
+    $sql = $db->prepare('SELECT * FROM shouhin WHERE sid=:sid');
+    $sql->bindValue(':sid',$sid);
+    $sql->execute();
+    $data = $sql->fetch();
+
+    $sid = $data['sid'];
+    $sname = $data['sname'];
+    $kakaku = $data['kakaku'];
+    $cid = $data['cid'];
+    $setsumei = $data['setsumei'];
+
+    // カテゴリリストの習得
+    $sql = $db->prepare('SELECT * FROM category');
+    $sql->execute();
+    $call = $sql->fetchAll();
+    $sql=null;
+
+		// エラーメッセージ出力
+	  if( isset( $_GET['err']) ){
+	  		$err = $_GET['err'];
+	  		if( $err==1 ){
+	  			echo '<h3>すでに登録されている商品です。</h3>';
+	  		}else if( $err==2 ){
+	  			echo '<h3>商品情報更新時にエラーが発生しました</h3>';
+	  		}
+		}
+	?>
+
+  <p>
+    <p>　■　製品情報を選択</p>
+    <form action="goods_edit2.php" method="post" enctype="multipart/form-data">
+    	<input type="hidden" name="sid" value=<?php echo $sid ?>>
+      商品名 <input type="text" name="sname" value=<?php echo $sname ?>><br>
+      価格 <input type="text" name="kakaku" value=<?php echo $kakaku ?>><br>
+      カテゴリ <select name="cid">
+      <?php
+        foreach( $call as $data ){
+        	if( $data['cid'] == $cid ){
+	          echo '<option value="' . $data['cid'] . '"selected >' . $data['cname'] . '</option>';
+        	}else{
+	          echo '<option value="' . $data['cid'] . '">' . $data['cname'] . '</option>';
+        	}
+        }
+      ?>
+      </select><br>
+      説明 <input type="textarea" name="setsumei" value=<?php echo $setsumei ?>><br>
+      <p>　■　画像データ(jpg)</p>
+
+      <?php
+      if( file_exists('../img/' . $sid . '.jpg')){
+      	echo '<img src="../img/' . $sid . '.jpg" alt="' . $sname . '"><br>';
+      }else{
+      	echo '<p>no picture</p>';
+      }
+
+      ?>
+
+		  <input type="file" name="fname"><br><br>
+      <input type="submit" value="商品情報更新"><br>
+    </form>
+  </p>
 
 </body>
 </html>
