@@ -41,12 +41,12 @@
 	echo '<caption>登録情報</caption>' ;
 		foreach ($all as $data){
 				$uname2=htmlentities($data['uname'],ENT_QUOTES,'UTF-8') ;
-				echo "<tr><td>氏名</td><td>$uname2</td></tr>";
+				echo "<tr><th>氏名</th><td>$uname2</td></tr>";
 				$address2=htmlentities($data['address'],ENT_QUOTES,'UTF-8') ;
-				echo "<tr><td>住所</td><td>$address2</td></tr>" ;
+				echo "<tr><th>住所</th><td>$address2</td></tr>" ;
 				$mail2=htmlentities($data['mail'],ENT_QUOTES,'UTF-8') ;
-				echo "<tr><td>e-mail</td><td>$mail2</td></tr>";
-				echo "<tr><td>パスワード</td><td>非表示</td></tr>";
+				echo "<tr><th>e-mail</th><td>$mail2</td></tr>";
+				echo "<tr><th>パスワード</th><td>非表示</td></tr>";
 		}
 	echo '</table>' ;
 	$sql=null ;
