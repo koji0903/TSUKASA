@@ -24,42 +24,53 @@ function getGID($uid)
 // ヘッダーの表示関数
 function disp_header()
 {
+	echo "<div id=\"navi\">";
+	echo '<ul>';
 	if( isset($_SESSION['UID']) ){
 		$gid = getGID($_SESSION['UID']);
 		if($gid == 1){
-			echo '<p><a href="./sh/cart.php">', "カート", '</a></p><br>';
-			echo '<p><a href="./top.php">商品一覧</a></p><br>';
-			echo '<p><a href="./sh/mypage.php">マイページ</a></p><br>';
-			echo '<p><a href="./logout.php">ログアウト</a></p><br>';
+			echo '<li><a href="./sh/cart.php">', "カート", '</a></li>';
+			echo '<li><a href="./top.php">商品一覧</a></li>';
+			echo '<li><a href="./sh/mypage.php">マイページ</a></li>';
+			echo '<li><a href="./logout.php">ログアウト</a></li>';
 		}
 		else{
-			echo '<p><a href="./maintenance.php">管理者ページ</a></p><br>';
-			echo '<p><a href="./logout.php">ログアウト</a></p><br>';
+			echo '<li><a href="./maintenance.php">管理者ページ</a></li>';
+			echo '<li><a href="./logout.php">ログアウト</a></li>';
 		}
 	}
 	else{
-		echo '<p><a href="./login.php">ログイン</a></p>';
+		echo '<li><a href="./login.php">ログイン</a></li>';
 	}
+	echo '</ul>';
+	echo '</div>';
+	echo "<br>";
+
 }
 // ヘッダーの表示関数
 function disp_header2()
 {
+	echo "<div id=\"navi\">";
+	echo '<ul>';
 	if( isset($_SESSION['UID']) ){
 		$gid = getGID($_SESSION['UID']);
 		if($gid == 1){
-			echo '<p><a href="../sh/cart.php">', "カート", '</a></p><br>';
-			echo '<p><a href="../top.php">商品一覧</a></p><br>';
-			echo '<p><a href="../sh/mypage.php">マイページ</a></p><br>';
-			echo '<p><a href="../logout.php">ログアウト</a></p><br>';
+			echo '<li><a href="../sh/cart.php">', "カート", '</a></li>';
+			echo '<li><a href="../top.php">商品一覧</a></li>';
+			echo '<li><a href="../sh/mypage.php">マイページ</a></li>';
+			echo '<li><a href="../logout.php">ログアウト</a></li>';
 		}
 		else{
-			echo '<p><a href="../maintenance.php">管理者ページ</a></p><br>';
-			echo '<p><a href="../logout.php">ログアウト</a></p><br>';
+			echo '<li><a href="../maintenance.php">管理者ページ</a></li>';
+			echo '<li><a href="../logout.php">ログアウト</a></li>';
 		}
 	}
 	else{
-		echo '<p><a href="../login.php">ログイン</a></p>';
+		echo '<li><a href="../login.php">ログイン</a></li';
 	}
+	echo '</ul>';
+	echo '</div>';
+	echo "<br>";
 }
 
 ?>

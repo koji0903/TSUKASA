@@ -12,13 +12,6 @@ p{
 	line-height: 150%;
 }
 
-li{
-	list-style-type: square;
-	font-weight: bold;
-	color: #336699;
-	margin-bottom: 0.5em;
-	margin-left: 1em;
-}
 
 dt{
 	font-weight: bold;
@@ -107,4 +100,21 @@ a:hover{
 
 a img{
 	border: 0px;
+}
+
+#navi{
+	text-align: center;
+	margin: 0;
+	padding: 0;
+}
+
+#navi ul{
+	list-style-type: none;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+#navi li{
+	float: left;
+	margin-right: 50px;
 }
