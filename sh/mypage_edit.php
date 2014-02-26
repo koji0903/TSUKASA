@@ -61,8 +61,9 @@
 	住所<input type="text" name="address" value="<?php echo $address2; ?>"><br>
 	<input type="submit" value="登録"></a>
 </form>
-
-　<a href="mypage_show.php" >登録情報表示</a><br>
+<br>
+　<a href="mypage_show.php" >戻る</a><br>
+<br>
   <a href="mypage.php" >マイページ</a>
 
 </body>
