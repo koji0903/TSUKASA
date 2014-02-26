@@ -22,7 +22,7 @@
 		   mb_strlen($_GET[ 'mail' ] > 50) ){
 			header("Location: ./registry.php?flag=1");
 		}
-		print_r(mb_strlen($_GET[ 'uname' ]));
+
 		$uname    = htmlentities($_GET[ 'uname' ],ENT_QUOTES,'UTF-8');
 		$address  = htmlentities($_GET[ 'address' ],ENT_QUOTES,'UTF-8');
 		$mail     = htmlentities($_GET[ 'mail' ],ENT_QUOTES,'UTF-8');
