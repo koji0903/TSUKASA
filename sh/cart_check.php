@@ -13,12 +13,12 @@
 		$_SESSION['SID'] = array(2,7,13,4,11);
 //		$_SESSION['SID'] = array();
 	}else{
+		$uid = $_SESSION['UID'];
 		$gid = getGID($uid);		
 	}
 
 
 	if ( isset($_SESSION['UID']) ){
-		$uid = $_SESSION['UID'];
 		if (  $gid == 0 ){
 			// 管理者であった場合は、管理者ページへリダイレクト			
 			header("Location: http://localhost/TSUKASA/maintenance.php");
@@ -47,7 +47,7 @@
 ?>
 <!-- コンテンツ -->
 <?php
-	if ( isset($_GET['s_type']) ){
+	if ( isset($_GET['s_type']) && $_GET['s_type'] != "" ){
 		$s_type = $_GET['s_type'];
 	}else{
 		// 送金タイプが選択されていません。
@@ -86,6 +86,7 @@
 	}
 
 	$total = $shoukei + $souryou;
+	echo "<br>";
 	echo "<table>";
 	echo "<tr>";
 	echo "<th>小計</th>";
