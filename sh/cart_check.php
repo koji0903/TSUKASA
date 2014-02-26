@@ -1,15 +1,24 @@
 <?php 
 	require_once("../common.php");
+	session_start();
+	setcookie(session_name(), session_id(), time()+60*5);
+
 
 	// デバッグ
-	$_SESSION['uid'] = 1;
+	if ( isset($_GET['debug']) ){
+		$_SESSION['uid'] = 1;
+		$gid = 1;
+	}else{
+		$gid = getGID($uid);		
+	}
+
 
 	if ( isset($_SESSION['uid']) ){
 		$uid = $_SESSION['uid'];
-		if ( getGID($uid) == 0 ){
+		if (  $gid == 0 ){
 			// 管理者であった場合は、管理者ページへリダイレクト			
-//			header("Location: http://localhost/TSUKASA/maintenance.php");
-//			exit;		
+			header("Location: http://localhost/TSUKASA/maintenance.php");
+			exit;		
 		}
 	}else{
 		// UIDが設定されていなければ、ログイン画面へリダイレクト
@@ -24,7 +33,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 <meta http-equiv="Content-Style-Type" content="text/css">
-<link rel="stylesheet" href="my.css" content="text/css">
+<link rel="stylesheet" href="../my.css" content="text/css">
 </head>
 <body>
 <h1>TSUKASA　Shop</h1>
@@ -32,14 +41,19 @@
 
 <!-- コンテンツ -->
 <?php
-	$s_type = "";
-	// if ( isset($_GET['s_type']) ){
-	// 	$s_type = $_GET['s_type'];
-	// }else{
-	// 	// 送金タイプが選択されていません。
-	// 	header("Location: ./cart_check2.html");
-	// 	exit;
-	// }
+	if ( isset($_GET['debug']) ){
+			$s_type = "furikomi";
+			$debug = "&debug";
+	}else{
+		$s_type = "";
+		if ( isset($_GET['s_type']) ){
+			$s_type = $_GET['s_type'];
+		}else{
+			// 送金タイプが選択されていません。
+			header("Location: ./cart_check2.html");
+			exit;
+		}
+	}
 
 	// 合計金額の計算
 	$_SESSION['SID'] = array(1,10);
@@ -66,10 +80,18 @@
 	}
 
 	$total = $shoukei + $souryou;
-	echo "小計： {$shoukei}円<br>";
-	echo "送料： {$souryou}円<br>";
-	echo "---------------<br>";
-	echo "合計：　{$total}円<br>";
+	echo "<table>";
+	echo "<tr>";
+	echo "<th>小計</th>";
+	echo "<td>{$shoukei}円</td>";
+	echo "</tr>";
+	echo "<th>送料</th>";
+	echo "<td>{$souryou}円</td>";
+	echo "<tr>";
+	echo "<th>合計</th>";
+	echo "<td>{$total}円</td>";
+	echo "</tr>";
+	echo "</table>";
 
 ?>
 

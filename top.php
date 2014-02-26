@@ -3,14 +3,20 @@
 	setcookie(session_name(), session_id(), time()+60*5);
 	require_once("./common.php");
 	// セッションチェック（まだ未実装）
-	// ログイン選択
+	// デバッグ
+	if ( isset($_GET['debug']) ){
+		echo "<p>Degug Mode!</p>";
+		$_SESSION['uid'] = 1;
+		$debug = "debug&";
+	}else{
+		$debug = "";
+	}
 
-	//$_SESSION['uid'] = 1;
-	$uid = 0;
 	if ( isset($_SESSION['uid']) ){
 		$uid = $_SESSION['uid'];
+	}else{
+		$uid = 0;		
 	}
-//	$uid =1 ;
 
 	// セッション更新
 	if ( isset($_GET['buy']) ){
@@ -35,7 +41,6 @@
 	}
 
 ?>
-
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -77,6 +82,9 @@
 			}
 		}
 		echo "</select>";
+		if ( isset($_GET['debug']) ){
+			echo "<input type=\"hidden\" name=debug value=1>";
+		}
 		echo "<input type=\"submit\" value=\"更新\">";
 		echo "</form>";
 		echo "</p>";
@@ -119,9 +127,9 @@
 			if ( $uid != 0 ){
 				echo "<td>";
 				if ( $selected_category == "all" ){
-					echo "<a href=\"./top.php?category=all&buy={$data['sid']}\"><button>カートへ追加</button></a>";
+					echo "<a href=\"./top.php?{$debug}category=all&buy={$data['sid']}\"><button>カートへ追加</button></a>";
 				}else{
-					echo "<a href=\"./top.php?category={$selected_category}&buy={$data['sid']}\"><button>カートへ追加</button></a>";
+					echo "<a href=\"./top.php?{$debug}category={$selected_category}&buy={$data['sid']}\"><button>カートへ追加</button></a>";
 				}
 				echo "</td>";
 			}
