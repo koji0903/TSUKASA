@@ -25,7 +25,9 @@
 <body>
 <h1>TSUKASA　Shop</h1>
 <!-- ヘッダー -->
-
+<?php
+disp_header();
+?>
 <!-- コンテンツ -->
 <p>
 	<a href="./ma/goods_main.php">商品操作</a>
