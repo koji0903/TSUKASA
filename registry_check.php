@@ -17,10 +17,17 @@
 	?>
 <!-- コンテンツ -->
 	<?php
+		if(mb_strlen($_GET[ 'uname' ]) > 30 ||
+		   mb_strlen($_GET[ 'address' ] > 100) || 
+		   mb_strlen($_GET[ 'mail' ] > 50) ){
+			header("Location: ./registry.php?flag=1");
+		}
+		print_r(mb_strlen($_GET[ 'uname' ]));
 		$uname    = htmlentities($_GET[ 'uname' ],ENT_QUOTES,'UTF-8');
 		$address  = htmlentities($_GET[ 'address' ],ENT_QUOTES,'UTF-8');
 		$mail     = htmlentities($_GET[ 'mail' ],ENT_QUOTES,'UTF-8');
 		
+
 		echo "<p>氏名：", $uname, "</p>";
 		echo "<p>住所：", $address, "</p>";
 		echo "<p>メールアドレス：", $mail, "</p>";

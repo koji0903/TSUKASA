@@ -16,6 +16,14 @@
 		disp_header();
 	?>
 <!-- コンテンツ -->
+	<?php
+		if(isset($_GET['flag'])){ 
+			$flag = $_GET['flag'];
+		}
+		else{
+			$flag = 0;
+		}
+	?>
 	<?php 
 		if(isset($_GET['uname'])){
 			$uname = $_GET['uname'];
@@ -38,6 +46,11 @@
 	?>
 
 	<h1>アカウント登録</h1>
+	<?php
+		if($flag == 1){
+			echo "<p>入力情報の文字数が多すぎます。</p>";
+		}
+	?>
 	<form action="registry_check.php" method="get">
 		氏名：<input type="text" name="uname" value= <?php echo $uname;?>><br>
 		住所：<input type="text" name="address" value= <?php echo $address;?>><br>

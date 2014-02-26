@@ -22,7 +22,7 @@
 		$address  = $_GET['address'];
 		$mail     = $_GET['mail'];
 		$password = $_GET['password'];
-
+		
 		$db = db();
 		
 		$sql = $db->prepare('SELECT * from user WHERE mail = :mail ');
