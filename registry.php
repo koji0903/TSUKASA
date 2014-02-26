@@ -52,9 +52,9 @@
 		}
 	?>
 	<form action="registry_check.php" method="get">
-		氏名：<input type="text" name="uname" value= <?php echo $uname;?>><br>
-		住所：<input type="text" name="address" value= <?php echo $address;?>><br>
-		メールアドレス：<input type="text" name="mail" value= <?php echo $mail;?>><br>
+		氏名：<input type="text" name="uname" value= "<?php echo $uname;?>"><br>
+		住所：<input type="text" name="address" value= "<?php echo $address;?>"><br>
+		メールアドレス：<input type="text" name="mail" value= "<?php echo $mail;?>"><br>
 		パスワード：<input type="password" name="password"><br>
 		<input type="submit" value="確認">
 	</form>
