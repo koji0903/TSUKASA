@@ -53,6 +53,9 @@
 <body>
 <h1>TSUKASA　Shop</h1>
 <!-- ヘッダー -->
+<?php
+	disp_header();
+?>
 <!-- コンテンツ -->
 <?php
 	$db = db();

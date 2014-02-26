@@ -8,6 +8,10 @@
 	if ( isset($_GET['debug']) ){
 		$_SESSION['UID'] = 1;
 		$gid = 1;
+		$_GET['s_type'] = "daibiki";
+		$debug = "&debug";
+//		$_SESSION['SID'] = array(2,7,8,13);
+		$_SESSION['SID'] = array();
 	}else{
 		$gid = getGID($uid);		
 	}
@@ -38,29 +42,25 @@
 <body>
 <h1>TSUKASA　Shop</h1>
 <!-- ヘッダー -->
-
+<?php
+	disp_header2();
+?>
 <!-- コンテンツ -->
 <?php
-	if ( isset($_GET['debug']) ){
-			$s_type = "furikomi";
-			$debug = "&debug";
-			$_SESSION['SID'] = array(2,7,8,13);
+	if ( isset($_GET['s_type']) ){
+		$s_type = $_GET['s_type'];
 	}else{
-		$s_type = "";
-		if ( isset($_GET['s_type']) ){
-			$s_type = $_GET['s_type'];
-		}else{
-			// 送金タイプが選択されていません。
-			header("Location: ./cart_check2.html");
-			exit;
-		}
+		// 送金タイプが選択されていません。
+		header("Location: ./cart_check2.html");
+		exit;
 	}
 
 	// 合計金額の計算
 	$sids = $_SESSION['SID'];
+	$sid_count = count( $sids);
 	$db = db();
-
 	$shoukei = 0;
+
 	foreach( $sids as $sid ){
 			$sql = $db->prepare('SELECT kakaku FROM shouhin WHERE sid = ?;');
 			$sql->bindValue(1, $sid);
@@ -71,11 +71,13 @@
 
 	// 送料の計算
 	$souryou = 0;
-	if ( $shoukei < 10000 ){
-		if( $s_type == "furikomi" ){
-			$souryou = 1300;
-		}else{
-			$souryou = 1000;
+	if ( $sid_count != 0 ){
+		if ( $shoukei < 10000 ){
+			if( $s_type == "furikomi" ){
+				$souryou = 1300;
+			}else{
+				$souryou = 1000;
+			}
 		}
 	}
 
@@ -102,8 +104,10 @@
 	if ( isset($_GET['debug']) ){
 		echo "<input type=\"hidden\" name=\"debug\" value=1 >";
 	}
+	if ( $sid_count != 0 ){
+		echo "<input type=\"submit\" name=\"buy\" value=\"購入\" >";
+	}
 ?>
-	<input type="submit" name="buy" value="購入" >
 	<input type="submit" name="cancel" value="キャンセル" >
 </form>
 
