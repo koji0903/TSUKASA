@@ -42,6 +42,10 @@
 	</form>
 	<form action="registry.php" method="get">
 		<input type="submit" value="NG">
+		<input type="hidden" name="uname" value= <?php echo $_GET[ 'uname' ];?>><br>
+		<input type="hidden" name="address" value= <?php echo $_GET[ 'address' ];?>><br>
+		<input type="hidden" name="mail" value= <?php echo $_GET[ 'mail' ];?>><br>
+		<input type="hidden" name="password" value= <?php echo $_GET['password'];?>><br>
 	</form>
 
 </body>
