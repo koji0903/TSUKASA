@@ -1,5 +1,5 @@
-<?php 
-	require_once("./common.php");
+<?php
+//	require_once("./common.php");
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -14,6 +14,45 @@
 <!-- ヘッダー -->
 
 <!-- コンテンツ -->
+  <?php
+    $sid = $_GET['sid'];
+
+    // 共通
+	  $db = new PDO("mysql:dbname=tsukasadb","root","root");
+	  $db->query('SET NAMES utf8;');
+
+		// すでに登録済みでないか確認
+		$sql = $db->prepare( 'SELECT * FROM shouhin JOIN category ON shouhin.cid=category.cid AND sid=:sid;');
+		$sql->bindValue(':sid',$sid);
+		$sql->execute();
+		$data = $sql->fetch();
+		$sql = null;
+  ?>
+
+	<h3>以下の商品を削除します。</h3><br>
+	商品ID　：　<?php echo $data['sid'] ?><br>
+	商品名　：　<?php echo $data['sname'] ?><br>
+	カテゴリ　：　<?php echo $data['cname'] ?><br>
+	価格　：　<?php echo $data['kakaku'] ?><br><br>
+
+	<textarea name="setsumei" cols="30" rows="10" readonly>
+		<?php  echo $data['setsumei'] ?>
+	</textarea></p>
+
+	<p>
+	  <?php
+	  if( file_exists('../img/' . $sid . '.jpg')){
+	  	echo '<img src="../img/' . $sid . '.jpg" alt="' . $sname . '"><br>';
+	  }else{
+	  	echo '<p>no picture</p>';
+	  }
+	  ?>
+  </p>
+
+  <form method="GET" action="goods_del2.php">
+    <input type="hidden" name="sid" value="<?php echo $sid ?>">
+    <input type="submit" value="削除実行">
+  </form>
 
 </body>
 </html>

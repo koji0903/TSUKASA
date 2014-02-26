@@ -1,5 +1,5 @@
-<?php 
-	require_once("./common.php");
+<?php
+//	require_once("./common.php");
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -14,6 +14,80 @@
 <!-- ヘッダー -->
 
 <!-- コンテンツ -->
+
+  <?php
+  	$sid = $_POST['sid'];
+    $sname = $_POST['sname'];
+    $kakaku = $_POST['kakaku'];
+    $setsumei = $_POST['setsumei'];
+    $cid = $_POST['cid'];
+
+    // 共通
+	  $db = new PDO("mysql:dbname=tsukasadb","root","root");
+	  $db->query('SET NAMES utf8;');
+
+		// すでに登録済みでないか確認
+		$sql = $db->prepare('SELECT * FROM shouhin WHERE sname=:sname AND sid!=:sid ;');
+		$sql->bindValue(':sid',$sid);
+		$sql->bindValue(':sname',$sname);
+		$sql->execute();
+		$data = $sql->fetch();
+		$sql = null;
+
+		print_r($data);
+
+		if( !empty($data) ){
+			// データがすでに登録済みである場合はエラーフラグを返す。
+		  header('Location: goods_edit.php?'.'sid='.$sid.'&err=1');
+		  exit;
+		}else{
+
+			if( !empty($setsumei) ){
+				$sql = $db->prepare('UPDATE shouhin SET sname=:sname,kakaku=:kakaku,setsumei=:setsumei,cid=:cid WHERE sid=:sid;');
+				$sql->bindValue(':setsumei',$setsumei);
+			}else{
+				$sql = $db->prepare('UPDATE shouhin SET (sname=:sname,kakaku=:kakaku,cid=:cid);');
+			}
+			$sql->bindValue(':sid',$sid);
+			$sql->bindValue(':sname',$sname);
+			$sql->bindValue(':kakaku',$kakaku);
+			$sql->bindValue(':cid',$cid);
+
+			if( $sql->execute() ){
+
+				//　商品情報が登録されれば画像をアップロード
+				$sql = $db->prepare('SELECT * FROM shouhin WHERE sname=:sname;');
+				$sql->bindValue(':sname',$sname);
+				$sql->execute();
+				$data = $sql->fetch();
+
+				echo '<h3>商品情報を更新しました</h3><br>';
+				echo '商品ID：' . $data['sid'] . '<br>';
+				echo '商品名：' . $data['sname'] . '<br>';
+				echo '価格：' . $data['kakaku'] . '<br>';
+
+		    $tempfile = $_FILES['fname']['tmp_name'];
+		    $filename = "../img/" . $data['sid'] . ".jpg";
+
+			  if (is_uploaded_file($tempfile)) {
+			    if ( move_uploaded_file($tempfile , $filename )) {
+			      echo '画像：' . $filename . '<br>';
+			    }else {
+			      echo "ファイルをアップロードできません。" . '<br>';
+			    }
+			  }else {
+		      echo '画像：更新はありません' . '<br>';
+			  }
+			}else{
+			  header('Location: goods_edit.php?'.'sid='.$sid.'&err=2');
+			  exit;
+			}
+
+			echo '<p><a href="goods_main.php">商品一覧に戻る</a></p>';
+
+		}
+	?>
+
 
 </body>
 </html>
