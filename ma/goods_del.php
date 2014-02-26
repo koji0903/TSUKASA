@@ -31,18 +31,18 @@
 
 	<h3>以下の商品を削除します。</h3><br>
 	商品ID　：　<?php echo $data['sid'] ?><br>
-	商品名　：　<?php echo $data['sname'] ?><br>
-	カテゴリ　：　<?php echo $data['cname'] ?><br>
+	商品名　：　<?php echo htmlentities( $data['sname'], ENT_QUOTES, "UTF-8" ) ?><br>
+	カテゴリ　：　<?php echo htmlentities( $data['cname'], ENT_QUOTES, "UTF-8" ) ?><br>
 	価格　：　<?php echo $data['kakaku'] ?><br><br>
 
-	<textarea name="setsumei" cols="30" rows="10" readonly>
-		<?php  echo $data['setsumei'] ?>
+	<textarea name="setsumei" cols="30" rows="20" readonly>
+		<?php  echo htmlentities( $data['setsumei'], ENT_QUOTES, "UTF-8" ) ?>
 	</textarea></p>
 
 	<p>
 	  <?php
 	  if( file_exists('../img/' . $sid . '.jpg')){
-	  	echo '<img src="../img/' . $sid . '.jpg" alt="' . $sname . '"><br>';
+	  	echo '<img src="../img/' . $sid . '.jpg" alt="' . $data['sname'] . '"><br>';
 	  }else{
 	  	echo '<p>no picture</p>';
 	  }
@@ -53,6 +53,7 @@
     <input type="hidden" name="sid" value="<?php echo $sid ?>">
     <input type="submit" value="削除実行">
   </form>
+  <p><a href="goods_main.php"><button>キャンセル</button></a></p>
 
 </body>
 </html>

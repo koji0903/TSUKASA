@@ -58,7 +58,7 @@
 
 				echo '<h3>商品を登録しました</h3><br>';
 				echo '商品ID：' . $data['sid'] . '<br>';
-				echo '商品名：' . $data['sname'] . '<br>';
+				echo '商品名：' . htmlentities( $data['sname'], ENT_QUOTES, "UTF-8" ) . '<br>';
 				echo '価格：' . $data['kakaku'] . '<br>';
 
 		    $tempfile = $_FILES['fname']['tmp_name'];

@@ -15,9 +15,8 @@
 
 <!-- コンテンツ -->
 
+	<p><a href="../maintenance.php">管理ページへ</a></p>
 	<p><a href="goods_add.php">新規追加</a></p>
-	<p><a href="../maintenance.php">戻る</a></p>
-
 
 	<?php
 	  $db = new PDO("mysql:dbname=tsukasadb","root","root");
@@ -34,12 +33,12 @@
 	  foreach( $all as $data ){
 	    echo '<tr>';
 	    // 商品名表示
-	    echo "<td>{$data['sname']}</td>";
+	    echo '<td>' . htmlentities( $data['sname'], ENT_QUOTES, "UTF-8" ) . '</td>';
 	    // カテゴリ表示
 	    if( $data['cname'] == NULL ){
 	    	echo "指定なし";
 	    }else{
-		    echo "<td>{$data['cname']}</td>";
+		    echo '<td>' . htmlentities( $data['cname'], ENT_QUOTES, "UTF-8" ) . '</td>';
 	    }
 	    // 価格表示
 	    echo "<td>{$data['kakaku']}</td>";

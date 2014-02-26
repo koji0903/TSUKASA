@@ -43,12 +43,12 @@
       カテゴリ <select name="cid">
       <?php
         foreach( $all as $data ){
-          echo '<option value="' . $data['cid'] . '">' . $data['cname'] . '</option>';
+          echo '<option value="' . $data['cid'] . '">' . htmlentities( $data['cname'], ENT_QUOTES, "UTF-8" ) . '</option>';
         }
       ?>
       </select><br>
       説明
-      <br><textarea rows="10" cols="40" name="setsumei"></textarea><br>
+      <br><textarea cols="30" rows="20" name="setsumei"></textarea><br>
       <p>　■　画像データ(jpg)</p>
 		  <input type="file" name="fname"><br><br>
       <input type="submit" value="登録実行"><br>
