@@ -12,11 +12,12 @@
 <body>
 <h1>TSUKASA　Shop</h1>
 <!-- ヘッダー -->
-
+<?php
+	session_start();
+	disp_header2();
+?>
 <!-- コンテンツ -->
 <?php 
-
-	session_start();		
 
 	if(isset($_SESSION['UID'])){
 		$uid = $_SESSION['UID']  ;
@@ -29,15 +30,23 @@
 		header("location:http://localhost/TSUKASA/login.php");
 	}
 
-	if (empty($_POST['uname']) || empty($_POST['mail']) || empty($_POST['address'])){
-		echo "err" ;
-		header("location:http:./mypage_edit.php?err_flag=1") ;
-		exit;
-	}
 	$uname =$_POST['uname'] ;
 	$password =$_POST['password'] ;
 	$mail =$_POST['mail'] ;
 	$address =$_POST['address'] ;
+
+	$pattern="^(\s|　)+$"; 
+	if(mb_ereg_match($pattern,$uname)||mb_ereg_match($pattern,$mail)||mb_ereg_match($pattern,$address)||mb_ereg_match($pattern,$password)){
+		header("location:http:./mypage_edit.php?err_flag=1") ;
+		exit ;
+	}
+
+
+	if (empty($_POST['uname']) || empty($_POST['mail']) || empty($_POST['address'])){
+		header("location:http:./mypage_edit.php?err_flag=1") ;
+		exit ;
+	}
+
 
 	if (empty($uid) && empty($uname) &&empty($mail) &&empty($address)){
 		header("location:http:./mypage_edit.php");

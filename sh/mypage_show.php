@@ -12,11 +12,13 @@
 <body>
 <h1>TSUKASA　Shop</h1>
 <!-- ヘッダー -->
-
+<?php
+	session_start();
+	disp_header2();
+?>
 <!-- コンテンツ -->
 <?php 
-	session_start();		
-
+		
 	if(isset($_SESSION['UID'])){
 		$uid = $_SESSION['UID']  ;
 		$gid=getGID($uid);
