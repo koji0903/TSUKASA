@@ -26,13 +26,14 @@
 <link rel="stylesheet" href="../my.css" content="text/css">
 </head>
 <body>
+<div id="contents">
 <h1>TSUKASA　Shop</h1>
 <!-- ヘッダー -->
 <?php
 disp_header2();
 ?>
 <!-- コンテンツ -->
-<h2>カート一覧</h2>
+	<h2>カート一覧</h2>
 <!-- delオプション指定時 -->
 <?php
 	if ( isset( $_GET['del'] ) ) {
@@ -102,6 +103,6 @@ if ( count($cart) > 0 ) {
 	echo '<a href="../top.php">商品一覧へ戻る</a><br>';
 }
 ?>
-
+</div>
 </body>
 </html>
