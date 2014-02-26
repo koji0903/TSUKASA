@@ -53,6 +53,12 @@
 		  exit;
 		}else{
 
+			// 価格の入力チェック
+			if( $kakaku <= 0 ){
+			  header("Location: goods_add.php?err=2");
+			  exit;
+			}
+
 			if( !empty($setsumei) ){
 				$sql = $db->prepare('INSERT INTO shouhin (sname,kakaku,setsumei,cid) VALUES(:sname,:kakaku,:setsumei,:cid);');
 				$sql->bindValue(':setsumei',$setsumei);
@@ -81,7 +87,7 @@
 
 			  if (is_uploaded_file($tempfile)) {
 			    if ( move_uploaded_file($tempfile , $filename )) {
-			      echo '画像：' . $filename . '<br>';
+			      echo '画像：アップロード済<br>';
 			    }else {
 			      echo "ファイルをアップロードできません。" . '<br>';
 			    }

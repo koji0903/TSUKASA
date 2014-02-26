@@ -32,7 +32,6 @@
 
 <!-- コンテンツ -->
 
-	<p><a href="../maintenance.php">管理ページへ</a></p>
 	<p><a href="goods_add.php">新規追加</a></p>
 
 	<?php

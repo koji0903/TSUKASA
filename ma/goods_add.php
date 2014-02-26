@@ -67,7 +67,7 @@
       <br><textarea cols="30" rows="20" name="setsumei"></textarea><br>
       <p>　■　画像データ(jpg)</p>
 		  <input type="file" name="fname"><br><br>
-      <input type="submit" value="登録実行"><br>
+      <input type="submit" value="OK"><br>
     </form>
   </p>
   <p><a href="goods_main.php"><button>キャンセル</button></a></p>

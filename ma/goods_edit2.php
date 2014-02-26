@@ -57,6 +57,12 @@
 		  exit;
 		}else{
 
+			// 価格の入力チェック
+			if( $kakaku <= 0 ){
+			  header('Location: goods_edit.php?'.'sid='.$sid.'&err=2');
+			  exit;
+			}
+
 			if( !empty($setsumei) ){
 				$sql = $db->prepare('UPDATE shouhin SET sname=:sname,kakaku=:kakaku,setsumei=:setsumei,cid=:cid WHERE sid=:sid;');
 				$sql->bindValue(':setsumei',$setsumei);
@@ -86,12 +92,12 @@
 
 			  if (is_uploaded_file($tempfile)) {
 			    if ( move_uploaded_file($tempfile , $filename )) {
-			      echo '画像：' . $filename . '<br>';
+			      echo '画像：再アップロード済<br>';
 			    }else {
 			      echo "ファイルをアップロードできません。" . '<br>';
 			    }
 			  }else {
-		      echo '画像：更新はありません' . '<br>';
+		      echo '画像：再アップロードなし' . '<br>';
 			  }
 			}else{
 			  header('Location: goods_edit.php?'.'sid='.$sid.'&err=2');
