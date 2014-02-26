@@ -1,6 +1,7 @@
 <?php 
 	session_start();
 	setcookie(session_name(), session_id(), time() - 1000);
+	unset($_SESSION);
 	header("Location: ./login.php");
 	exit;
 
