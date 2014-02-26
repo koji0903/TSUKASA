@@ -10,10 +10,13 @@
 <link rel="stylesheet" href="../my.css" content="text/css">
 </head>
 <body>
-<h1>TSUKASA Shop カテゴリ追加２</h1>
+<h1>TSUKASA　Shop</h1>
 <!-- ヘッダー -->
 
 <?php
+# 6-2 ファイル追加
+# カテゴリ追加２
+
 # デバッグ
 $uid = 1;
 $gid = 0;
@@ -35,7 +38,7 @@ if( $gid != 0 ) {
 
 }
 #--------------------------------------------------------
-$cate = $_GET['cate'];
+$cate = htmlentities($_GET['cate'], ENT_QUOTES, "UTF-8" );
 #--------------------------------------------------------
 # DB 取得
 #$db = db();
@@ -55,15 +58,16 @@ if( $sql->fetch() ) {
 }
 #--------------------------------------------------------
 # 該当する商品がない場合はDBに追加する
-# オブジェクト作成
 $sql = $db->prepare('INSERT INTO category ( cname ) VALUES ( ? )');
 $sql->bindValue(1, $cate);
 if( ! $sql->execute() ) {
-	echo "DBにオブジェクトが追加できませんでした";
+	echo "<p>DBにオブジェクトが追加できませんでした</p>";
+	echo "<p></p>";
+	echo "<td><a href=\"category_main.php\" >カテゴリ操作へ</td>";
+	exit;
 }
 
 header("Location: category_main.php");	
-
 ?>
 
 <!-- コンテンツ -->

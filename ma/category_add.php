@@ -10,10 +10,13 @@
 <link rel="stylesheet" href="../my.css" content="text/css">
 </head>
 <body>
-<h1>TSUKASA Shop カテゴリ追加</h1>
+<h1>TSUKASA　Shop</h1>
 <!-- ヘッダー -->
 
 <?php
+# 6-2
+echo "<h2>カテゴリ追加</h2>";
+
 # デバッグ
 $uid = 1;
 $gid = 0;
@@ -43,6 +46,9 @@ if( isset($_GET['err'] ) ){
 echo "<form method=\"GET\" action=\"category_add2.php\">";
 echo "カテゴリ:<input type=\"text\" name=\"cate\"><br>";
 echo "<input type=\"submit\" value=\"追加\">";
+echo "</form>";
+echo "<form method=\"GET\" action=\"category_main.php\">";
+echo "<input type=\"submit\" value=\"キャンセル\">";
 echo "</form>";
 #--------------------------------------------------------
 

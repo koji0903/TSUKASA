@@ -10,9 +10,12 @@
 <link rel="stylesheet" href="../my.css" content="text/css">
 </head>
 <body>
-<h1>TSUKASA　Shop　削除２</h1>
+<h1>TSUKASA　Shop</h1>
 <!-- ヘッダー -->
 <?php
+# 6-4(ファイル追加分)
+# 削除２
+
 # デバッグ
 $uid = 1;
 $gid = 0;
@@ -31,10 +34,9 @@ if( $gid != 0 ) {
 	echo "管理者ではありません。ページ８へ";
 #	header("Location: localhost/TSUKASA/top.php");
 	exit;
-
 }
 #--------------------------------------------------------
-$cid	= $_GET['cid'];
+$cid = htmlentities($_GET['cid'], ENT_QUOTES, "UTF-8" );
 #--------------------------------------------------------
 # DB 取得
 #$db = db();
@@ -45,7 +47,9 @@ $db->query("SET NAMES utf8;");
 $sql = $db->prepare('DELETE FROM category WHERE cid=?');
 $sql->bindValue(1, $cid);
 if( ! $sql->execute() ) {
-	echo "DBのカテゴリを削除できませんでした";
+	echo "<p>DBのカテゴリを削除できませんでした</p>";
+	echo "<p></p>";
+	echo "<td><a href=\"category_main.php\" >カテゴリ操作へ</td>";
 	exit;
 }
 

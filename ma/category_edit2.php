@@ -10,9 +10,12 @@
 <link rel="stylesheet" href="../my.css" content="text/css">
 </head>
 <body>
-<h1>TSUKASA　Shop カテゴリ編集２</h1>
+<h1>TSUKASA　Shop</h1>
 <!-- ヘッダー -->
 <?php
+# 6-3(ファイル追加分)
+# カテゴリ編集２
+
 # デバッグ
 $uid = 1;
 $gid = 0;
@@ -31,11 +34,10 @@ if( $gid != 0 ) {
 	echo "管理者ではありません。ページ８へ";
 #	header("Location: localhost/TSUKASA/top.php");
 	exit;
-
 }
 #--------------------------------------------------------
-$cid	= $_GET['cid'];
-$cname	= $_GET['cname'];
+$cid	= htmlentities($_GET['cid'],   ENT_QUOTES, "UTF-8");
+$cname	= htmlentities($_GET['cname'], ENT_QUOTES, "UTF-8");
 #--------------------------------------------------------
 # DB 取得
 #$db = db();
@@ -47,7 +49,9 @@ $sql = $db->prepare('UPDATE category SET cname=? WHERE cid=?');
 $sql->bindValue(1, $cname);
 $sql->bindValue(2, $cid);
 if( ! $sql->execute() ) {
-	echo "DBのカテゴリを変更できませんでした";
+	echo "<p>DBのカテゴリを変更できませんでした</p>";
+	echo "<p></p>";
+	echo "<td><a href=\"category_main.php\" >カテゴリ操作へ</td>";
 	exit;
 }
 

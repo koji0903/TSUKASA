@@ -10,9 +10,12 @@
 <link rel="stylesheet" href="../my.css" content="text/css">
 </head>
 <body>
-<h1>TSUKASA Shop カテゴリ操作</h1>
+<h1>TSUKASA　Shop</h1>
 <!-- ヘッダー -->
 <?php
+# 6-1
+echo "<h2>カテゴリ操作</h2>";
+
 # デバッグ
 $uid = 1;
 $gid = 0;
@@ -42,13 +45,13 @@ echo "<p><a href=\"category_add.php\">カテゴリ追加</a>";
 $db = new PDO("mysql:dbname=tsukasadb", "root", "root");
 $db->query("SET NAMES utf8;");
 #--------------------------------------------------------
-# オブジェクト作成
+# カテゴリのデータ取得
 $sql = $db->prepare('SELECT * FROM category');
 $sql->execute();
 $all = $sql->fetchAll();
 $sql = null; #オブジェクト解放
 #--------------------------------------------------------
-
+# 一覧表示
 echo "<table>";
 echo "<tr>";
 echo "<th>カテゴリ名</th>";
@@ -63,7 +66,8 @@ foreach($all as $data) {
 	echo "<td>$cname</td>";
 	echo "<td><a href=\"category_edit.php?cid=$cid\">編集</a></td>";
 
-	# オブジェクト作成
+	# cid に一致するカテゴリデータの取得
+	# (cid を取得してから比較から、一致するものを取得で記載している)
 	$sql = $db->prepare('SELECT * FROM shouhin WHERE cid=?');
 	$sql->bindValue(1, $cid);
 	$sql->execute();
@@ -72,7 +76,7 @@ foreach($all as $data) {
 		echo "<td></td>";
 	}
 	else {
-		# 該当する商品がない場合は 削除 を表示
+		# 該当する商品がない場合は「削除」を表示
 		echo "<td><a href=\"category_del.php?cid=$cid\" >削除</td>";
 	}
 	echo "</tr>";
