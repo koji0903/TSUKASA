@@ -21,7 +21,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 <meta http-equiv="Content-Style-Type" content="text/css">
-<link rel="stylesheet" href="my.css" content="text/css">
+<link rel="stylesheet" href="../my.css" content="text/css">
 </head>
 <body>
 <h1>TSUKASA　Shop</h1>
@@ -83,9 +83,7 @@
       ?>
       </select><br>
       説明
-      <br><textarea cols="30" rows="20" name="setsumei">
-        <?php echo htmlentities( htmlentities( $setsumei, ENT_QUOTES, "UTF-8" ), ENT_QUOTES, "UTF-8" ) ?>
-      </textarea><br>
+      <br><textarea cols="30" rows="20" name="setsumei"><?php echo htmlentities( htmlentities( $setsumei, ENT_QUOTES, "UTF-8" ), ENT_QUOTES, "UTF-8" ) ?></textarea><br>
       <p>　■　画像データ(jpg)</p>
 
       <?php
@@ -94,10 +92,11 @@
       }else{
       	echo '<p>no picture</p>';
       }
-      ?>
+      ?><br>
 
+      <p>　■　画像データ(jpg)　再アップロード</p>
 		  <input type="file" name="fname"><br><br>
-      <input type="submit" value="商品情報更新"><br>
+      <input type="submit" value="OK"><br>
     </form>
   </p>
   <p><a href="goods_main.php"><button>キャンセル</button></a></p>

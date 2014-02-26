@@ -21,7 +21,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 <meta http-equiv="Content-Style-Type" content="text/css">
-<link rel="stylesheet" href="my.css" content="text/css">
+<link rel="stylesheet" href="../my.css" content="text/css">
 </head>
 <body>
 <h1>TSUKASA　Shop</h1>
@@ -67,7 +67,7 @@
       <br><textarea cols="30" rows="20" name="setsumei"></textarea><br>
       <p>　■　画像データ(jpg)</p>
 		  <input type="file" name="fname"><br><br>
-      <input type="submit" value="登録実行"><br>
+      <input type="submit" value="OK"><br>
     </form>
   </p>
   <p><a href="goods_main.php"><button>キャンセル</button></a></p>
