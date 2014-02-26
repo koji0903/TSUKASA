@@ -61,7 +61,7 @@
 	    //　画像表示
 			$img = '../img/' . $data['sid'] . '.jpg' ;
 			if ( file_exists($img) ){
-				echo "<td><img src=\"${img}\" height=\"150\" width=\"200\"></td>";
+				echo "<td><img src=\"${img}\" height=\"50\" width=\"70\"></td>";
 			}else{
 				echo "<td>no picture</td>";
 			}
