@@ -4,8 +4,8 @@
 	
 	require_once("./common.php");
 	
-	if(isset($_SESSION["uid"])){
-		$gid = getGID($_SESSION["uid"]);
+	if(isset($_SESSION["UID"])){
+		$gid = getGID($_SESSION["UID"]);
 		if($gid == 1){ //ユーザ権限
 			header("Location: ./top.php");
 			exit;
