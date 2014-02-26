@@ -57,7 +57,7 @@ $sql->execute();
 # 既にカテゴリ名が存在する場合
 if( $sql->fetch() ) {
 	# 既にカテゴリ名が存在する場合
-	header("Location: category_edit.php?err");
+	header("Location: category_edit.php?err&cid=$cid");
 	exit;
 }
 #--------------------------------------------------------
