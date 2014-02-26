@@ -35,7 +35,6 @@ if( $gid != 0 ) {
 	echo "管理者ではありません。ページ８へ";
 #	header("Location: localhost/TSUKASA/top.php");
 	exit;
-
 }
 #--------------------------------------------------------
 if( isset($_GET['err'] ) ){

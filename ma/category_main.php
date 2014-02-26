@@ -41,9 +41,9 @@ if( $gid != 0 ) {
 echo "<p><a href=\"category_add.php\">カテゴリ追加</a>";
 #--------------------------------------------------------
 # DB 取得
-#$db = db();
-$db = new PDO("mysql:dbname=tsukasadb", "root", "root");
-$db->query("SET NAMES utf8;");
+#$db = new PDO("mysql:dbname=tsukasadb", "root", "root");
+#$db->query("SET NAMES utf8;");
+$db = db();
 #--------------------------------------------------------
 # カテゴリのデータ取得
 $sql = $db->prepare('SELECT * FROM category');

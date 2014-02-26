@@ -41,9 +41,9 @@ if( $gid != 0 ) {
 $cate = htmlentities($_GET['cate'], ENT_QUOTES, "UTF-8" );
 #--------------------------------------------------------
 # DB 取得
-#$db = db();
-$db = new PDO("mysql:dbname=tsukasadb", "root", "root");
-$db->query("SET NAMES utf8;");
+#$db = new PDO("mysql:dbname=tsukasadb", "root", "root");
+#$db->query("SET NAMES utf8;");
+$db = db();
 #--------------------------------------------------------
 # オブジェクト作成
 $sql = $db->prepare('SELECT * FROM category WHERE cname=?');
