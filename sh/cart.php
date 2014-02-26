@@ -3,8 +3,10 @@
 	setcookie(session_name(), session_id(), time()+60);
 	require_once("../common.php");
 	// debug
-	$_SESSION['UID'] = 1;
-	if ( isset($_GET['debug']) ) {
+	if ( isset($_GET['debug_uid']) ) {
+		$_SESSION['UID'] = 1;
+	}
+	if ( isset($_GET['debug_sid']) ) {
 		$_SESSION['SID'] = array(5, 6, 7, 8, 9);
 	}
 	if ( ! isset($_SESSION['UID']) ) {
@@ -26,7 +28,9 @@
 <body>
 <h1>TSUKASA　Shop</h1>
 <!-- ヘッダー -->
-
+<?php
+disp_header2();
+?>
 <!-- コンテンツ -->
 <h2>カート一覧</h2>
 <!-- delオプション指定時 -->
@@ -41,7 +45,7 @@
 ?>
 <!-- セッションからカート情報を取得 -->
 <?php
-	$cart = $_SESSION['SID'];
+	$cart = (isset($_SESSION['SID'])) ? $_SESSION['SID'] : null;
 ?>
 
 <!-- テーブル表示 -->
