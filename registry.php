@@ -12,7 +12,9 @@
 <body>
 <h1>TSUKASA　Shop</h1>
 <!-- ヘッダー -->
-	disp_header();
+	<?php
+		disp_header();
+	?>
 <!-- コンテンツ -->
 	<?php 
 		if(isset($_GET['uname'])){
