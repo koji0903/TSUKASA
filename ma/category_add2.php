@@ -22,24 +22,23 @@
 # カテゴリ追加２
 
 # デバッグ
-$uid = 1;
-$gid = 0;
+#$uid = 1;
+#$gid = 0;
 #--------------------------------------------------------
-#session_start();
-#if( ! isset($_SESSION['uid']) ) {
-if( ! isset($uid) ) {
-	echo "uidがありません。ページ１へ";
-#	header("Location: localhost/TSUKASA/login.php");
+#if( ! isset($uid) ) {
+session_start();
+if( ! isset($_SESSION['UID']) ) {
+#	echo "uidがありません。ページ１へ";
+	header("Location: ../login.php");
 	exit;
 }
 
-#$uid = $_SESSION['uid'];
-#$gid = getGID($uid);
+$uid = $_SESSION['UID'];
+$gid = getGID($uid);
 if( $gid != 0 ) {
-	echo "管理者ではありません。ページ８へ";
-#	header("Location: localhost/TSUKASA/top.php");
+#	echo "管理者ではありません。ページ８へ";
+	header("Location: ../top.php");
 	exit;
-
 }
 #--------------------------------------------------------
 $cate = htmlentities($_GET['cate'], ENT_QUOTES, "UTF-8" );
