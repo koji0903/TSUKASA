@@ -1,4 +1,7 @@
 <?php 
+	session_start();
+	setcookie(session_name(), session_id(), time() + 60*60);
+
 	require_once("./common.php");
 ?>
 
@@ -41,20 +44,22 @@
 			if( $sql->execute() ){
 				//成功した場合の処理
 				echo '追加しました<br>';
+				echo '<a href = "top.php">商品一覧ページへ</a>';
 			}
 			else{
 				//失敗した場合の処理
 				echo '追加に失敗しました<br>';
+				echo '<a href = "registry.php">アカウント登録ページへ</a>';
 			}
 		}
 		else{
 			//失敗した場合の処理
 			echo '同じメールアドレスが登録されています。<br>';
+			echo '<a href = "registry.php">アカウント登録ページへ</a>';
 		}
 		//オブジェクトの解放
 		$sql = null;
 	?>
-	<a href = "top.php">商品一覧ページへ</a>
 
 </body>
 </html>
