@@ -1,4 +1,7 @@
 <?php 
+	session_start();
+	setcookie(session_name(), session_id(), time() + 60*60);
+
 	require_once("./common.php");
 ?>
 

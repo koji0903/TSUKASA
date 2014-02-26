@@ -1,6 +1,12 @@
 <?php 
 	require_once("./common.php");
-	setcookie(session_name(), session_id(), time()-1000);
+	$_SESSION = array();
+
+	if (isset($_COOKIE["PHPSESSID"])) {
+		setcookie("PHPSESSID", '', time() - 1800, '/');
+	}
+
+	session_destroy();
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
