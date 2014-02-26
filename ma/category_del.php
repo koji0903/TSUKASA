@@ -62,7 +62,7 @@ if( ! $sql->execute() ) {
 $data = $sql->fetch();
 $cname = $data['cname'];
 
-echo "<p>削除しますか？</p>";
+echo "<p>削除しますが、よろしいですか？</p>";
 echo "<p>カテゴリ:$cname</p>";
 #--------------------------------------------------------
 echo "<form method=\"GET\" action=\"category_del2.php\">";
