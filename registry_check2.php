@@ -24,21 +24,30 @@
 		$password = $_GET['password'];
 
 		$db = db();
-
-		$sql = $db->prepare('INSERT INTO user ( uname, address, mail, password ）VALUES ( :uname, :address, :mail, :password) ');
-
-		$sql->bindValue(':uname',$uname);
-		$sql->bindValue(':address',$address);
+		
+		$sql = $db->prepare('SELECT * from user WHERE mail = :mail ');
 		$sql->bindValue(':mail',$mail);
-		$sql->bindValue(':password',md5($password));
-		//SQLの実行
-		if( $sql->execute() ){
-			//成功した場合の処理
-			echo '追加しました<br>';
+		if($data){
+
+			$sql = $db->prepare('INSERT INTO user ( uname, address, mail, password )VALUES ( :uname, :address, :mail, :password) ');
+
+			$sql->bindValue(':uname',$uname);
+			$sql->bindValue(':address',$address);
+			$sql->bindValue(':mail',$mail);
+			$sql->bindValue(':password',md5($password));
+			//SQLの実行
+			if( $sql->execute() ){
+				//成功した場合の処理
+				echo '追加しました<br>';
+			}
+			else{
+				//失敗した場合の処理
+				echo '追加に失敗しました<br>';
+			}
 		}
 		else{
 			//失敗した場合の処理
-			echo '追加に失敗しました<br>';
+			echo '同じメールアドレスが登録されています。<br>';
 		}
 		//オブジェクトの解放
 		$sql = null;
