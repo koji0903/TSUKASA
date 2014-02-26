@@ -21,7 +21,7 @@
 	if ( isset($_SESSION['UID']) ){
 		if (  $gid == 0 ){
 			// 管理者であった場合は、管理者ページへリダイレクト			
-			header("Location: http://localhost/TSUKASA/maintenance.php");
+			header("Location: ../maintenance.php");
 			exit;		
 		}
 	}else{
@@ -48,6 +48,11 @@
 <!-- コンテンツ -->
 <?php
 	if ( isset($_GET['s_type']) && $_GET['s_type'] != "" ){
+		if(( $_GET['s_type'] != "soukin" ) && ( $_GET['s_type'] != "daibiki" )){
+			// 送金タイプが選択されていません。
+			header("Location: ./cart_check2.html");
+			exit;			
+		}
 		$s_type = $_GET['s_type'];
 	}else{
 		// 送金タイプが選択されていません。
@@ -75,7 +80,7 @@
 		if ( $shoukei < 10000 ){
 			if( $s_type == "daibiki" ){
 				$souryou = 1300;
-			}else if( $s_type == "furikomi" ) {
+			}else if( $s_type == "soukin" ) {
 				$souryou = 1000;
 			}
 		}else{
