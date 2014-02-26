@@ -3,9 +3,6 @@
 	setcookie(session_name(), session_id(), time()+60);
 
 	require_once("../common.php");
-	// debug
-	// $_SESSION['UID'] = 2;
-
 	if ( ! isset($_SESSION['UID']) ) {
 		header("Location: ../login.php");
 		exit;
@@ -20,7 +17,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 <meta http-equiv="Content-Style-Type" content="text/css">
-<link rel="stylesheet" href="my.css" content="text/css">
+<link rel="stylesheet" href="../my.css" content="text/css">
 </head>
 <body>
 <h1>TSUKASA　Shop</h1>

@@ -21,27 +21,27 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 <meta http-equiv="Content-Style-Type" content="text/css">
-<link rel="stylesheet" href="my.css" content="text/css">
+<link rel="stylesheet" href="../my.css" content="text/css">
 </head>
 <body>
 <h1>TSUKASAã€€Shop</h1>
 <!-- ãƒ˜ãƒƒãƒ€ãƒ¼ -->
 
-<!-- ã‚³ãƒ³ãƒƒ³ãƒ-->
-<h2>ã‚«ãƒ¼ãƒˆä¸€è¦§</h2>
-<!-- delã‚ªãƒ—ã‚·ãƒ§ãƒ³æŒ®šæ™‚ -->
+<!-- ã‚³ãƒ³ãƒƒ³ã�->
+<h2>ã‚«ãƒ¼ãƒˤ¸€è¦§</h2>
+<!-- delã‚ªãƒ—ã‚·ãƒ§ãƒ³æŒ®šæ™�-->
 <?php
 	if ( isset( $_GET['del'] ) ) {
 		$index = array_search( $_GET['del'], $_SESSION['SID']);
 		if ( $index !== FALSE ) {
-			// echo "{$index}ã‚’å‰Šé™¤ã—ã¾ã—ãŸ<br>";
+			// echo "{$index}ã‚’å‰�é™¤ã—ã¾ã—ã¸<br>";
 			unset( $_SESSION['SID'][$index] );
 		}
 	}
 ?>
-<!-- ã‚»ãƒ‚·ãƒ§ãƒ³ã‹ã‚‰ã‚«ãƒ¼ãƒˆæƒ…å ±ã‚’å–å¾-->
+<!-- ã‚»ãƒ‚·ãƒ§ãƒ³ã‹ã‚‰ã‚«ãƒ¼ãƒ˦ƒ…å�±ã‚’å–å¾-->
 <?php
-	$cart = $_SESSION['SID'];
+	$cart = (isset($_SESSION['SID'])) ? $_SESSION['SID'] : null;
 ?>
 
 <!-- ãƒãƒ–ãƒ«è¡¨ç¤º -->
@@ -50,9 +50,9 @@ if ( count($cart) > 0 ) {
 	echo "<table border=1>\n";
 	echo '<thead>';
 	echo '<th>ID(ãƒƒãƒ‚°)</th>'; // ãƒƒãƒ‚°
-	echo '<th>å•“å/th>';
-	echo '<th>ä¾¡æ ¼</th>';
-	echo '<th>å‰Šé™¤</th>';
+	echo '<th>å•“¥�th>';
+	echo '<th>ä¾¡æ�¼</th>';
+	echo '<th>å‰�é™¤</th>';
 	echo "</thead>\n";
 	$sum = 0;
 	foreach ( $cart as $sid ) {
@@ -69,33 +69,33 @@ if ( count($cart) > 0 ) {
 			echo "<td>", $sname, "</td>";
 			echo "<td>", $data['kakaku'], "</td>";
 			echo '<td><a href="cart.php?del=',
-				$data['sid'], '">å‰Šé™¤</a></td>';
+				$data['sid'], '">å‰�é™¤</a></td>';
 			echo "</tr>\n";
 			$sum += $data['kakaku'];
 		}
-		$sql = null; // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãè§£æ”¾
+		$sql = null; // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˣè§£æ”¾
 	}
 	echo "</table>";
-	echo "<p>å°è¨ˆéßé¡ï¼š{$sum} å†/p>"
-// ä¸‹ãelseã«ç¶šã
+	echo "<p>å°è¨˩é¡ï¼š{$sum} å�/p>"
+// ä¸‹ãelseã«ç¶šã�
 ?>
 
 <!--  -->
 <form method="GET" action="cart_check.php">
-	é€ßã‚¿ã‚¤ãƒ
+	é€ã‚¿ã‚¤ã�
 	<select name="s_type">
 		<option value="" selected></option>
-		<option value="furikomi">振込み</option>
-		<option value="daibiki">代引き</option>
+		<option value="soukin">振込</option>
+		<option value="daibiki">代引き</option>
 	</select><br>
 	<input type="submit" value="ç¢ºèª>
 </form>
 
 <?php
-// ç¶šã
+// ç¶šã�
 } else {
-	echo 'ã‚«ãƒ¼ãƒˆãç©ºã§ã™ã€br>';
-	echo '<a href="../top.php">å•“ä¸€è¦§ã¸æˆ»ã‚/a><br>';
+	echo 'ã‚«ãƒ¼ãƒˣç©ºã§ã™ã€br>';
+	echo '<a href="../top.php">å•“¤¸€è¦§ã¸æ˻ã�a><br>';
 }
 ?>
 
