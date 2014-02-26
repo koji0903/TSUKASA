@@ -153,11 +153,11 @@
 		if ( $selected_category == "all" ){
 			// 全部表示
 //			$sql = $db->prepare('SELECT sid, sname, category.cname as cname, kakaku, setsumei FROM shouhin, category WHERE shouhin.cid = category.cid');
-			$sql = $db->prepare('SELECT sid, sname, category.cname as cname, kakaku, setsumei FROM shouhin LEFT JOIN category ON shouhin.cid = category.cid ORDER BY shouhin.sid');
+			$sql = $db->prepare('SELECT sid, sname, category.cname as cname, kakaku, setsumei FROM shouhin LEFT JOIN category ON shouhin.cid = category.cid ORDER BY shouhin.kakaku DESC');
 		}else{
 			// 選択されたカテゴリのみを表示
 //			$sql = $db->prepare('SELECT sid, sname, category.cname as cname, kakaku, setsumei FROM shouhin, category WHERE shouhin.cid = category.cid AND shouhin.cid = ?');
-			$sql = $db->prepare('SELECT sid, sname, category.cname as cname, kakaku, setsumei FROM shouhin LEFT JOIN category ON shouhin.cid = category.cid AND shouhin.cid = ?  ORDER BY shouhin.sid');
+			$sql = $db->prepare('SELECT sid, sname, category.cname as cname, kakaku, setsumei FROM shouhin LEFT JOIN category ON shouhin.cid = category.cid AND shouhin.cid = ?  ORDER BY shouhin.kakaku DESC');
 			$sql->bindValue(1, $selected_category);
 		}
 		if ( $sql->execute() ){
