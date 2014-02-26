@@ -19,7 +19,9 @@
 		if ( $gid != 0 ){
 			$login = "true";
 		}else{
-			$login = "false";
+			// 管理者であった場合は、管理者ページへリダイレクト			
+			header("Location: ./maintenance.php");
+			exit;		
 		}
 	}else{
 		$uid = 0;
