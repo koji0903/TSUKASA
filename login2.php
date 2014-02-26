@@ -39,7 +39,7 @@
 		$data = $sql->fetch();
 	
 		if($data){
-			$_SESSION['uid'] = $data['uid']; 
+			$_SESSION['UID'] = $data['uid']; 
 			$gid = getGID($data['uid']);
 			if($gid == 1){ //ユーザ権限
 				echo "<h1>ユーザー権限でログインしました</h1><br>";
