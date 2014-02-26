@@ -3,6 +3,11 @@
 	setcookie(session_name(), session_id(), time() + 60*60);
 
 	require_once("./common.php");
+	
+	if(!(isset($_GET['mail']) && isset($_GET['password']))){
+		header("Location: ./login.php");
+		exit;
+	}
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -34,7 +39,7 @@
 		$data = $sql->fetch();
 	
 		if($data){
-			$_SESSION["uid"] = $data['uid']; 
+			$_SESSION['uid'] = $data['uid']; 
 			$gid = getGID($data['uid']);
 			if($gid == 1){ //ユーザ権限
 				echo "<h1>ユーザー権限でログインしました</h1><br>";
