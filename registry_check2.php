@@ -27,8 +27,10 @@
 		
 		$sql = $db->prepare('SELECT * from user WHERE mail = :mail ');
 		$sql->bindValue(':mail',$mail);
+		$sql->execute()
+		$data = $sql->fetchAll();
+		
 		if($data){
-
 			$sql = $db->prepare('INSERT INTO user ( uname, address, mail, password )VALUES ( :uname, :address, :mail, :password) ');
 
 			$sql->bindValue(':uname',$uname);
