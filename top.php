@@ -6,14 +6,14 @@
 	// デバッグ
 	if ( isset($_GET['debug']) ){
 		echo "<p>Degug Mode!</p>";
-		$_SESSION['uid'] = 1;
+		$_SESSION['UID'] = 1;
 		$debug = "debug&";
 	}else{
 		$debug = "";
 	}
 
-	if ( isset($_SESSION['uid']) ){
-		$uid = $_SESSION['uid'];
+	if ( isset($_SESSION['UID']) ){
+		$uid = $_SESSION['UID'];
 	}else{
 		$uid = 0;		
 	}

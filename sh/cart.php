@@ -85,7 +85,7 @@ if ( count($cart) > 0 ) {
 	é€ßã‚¿ã‚¤ãƒ
 	<select name="s_type">
 		<option value="" selected></option>
-		<option value="soukin">送金</option>
+		<option value="furikomi">振込み</option>
 		<option value="daibiki">代引き</option>
 	</select><br>
 	<input type="submit" value="ç¢ºèª>

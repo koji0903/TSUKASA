@@ -6,15 +6,15 @@
 
 	// デバッグ
 	if ( isset($_GET['debug']) ){
-		$_SESSION['uid'] = 1;
+		$_SESSION['UID'] = 1;
 		$gid = 1;
 	}else{
 		$gid = getGID($uid);		
 	}
 
 
-	if ( isset($_SESSION['uid']) ){
-		$uid = $_SESSION['uid'];
+	if ( isset($_SESSION['UID']) ){
+		$uid = $_SESSION['UID'];
 		if (  $gid == 0 ){
 			// 管理者であった場合は、管理者ページへリダイレクト			
 			header("Location: http://localhost/TSUKASA/maintenance.php");
@@ -44,6 +44,7 @@
 	if ( isset($_GET['debug']) ){
 			$s_type = "furikomi";
 			$debug = "&debug";
+			$_SESSION['SID'] = array(2,7,8,13);
 	}else{
 		$s_type = "";
 		if ( isset($_GET['s_type']) ){
@@ -56,7 +57,6 @@
 	}
 
 	// 合計金額の計算
-	$_SESSION['SID'] = array(1,10);
 	$sids = $_SESSION['SID'];
 	$db = db();
 
@@ -93,7 +93,30 @@
 	echo "</tr>";
 	echo "</table>";
 
+
 ?>
 
+<br>
+<form action="./cart_check2.php">
+<?php  
+	if ( isset($_GET['debug']) ){
+		echo "<input type=\"hidden\" name=\"debug\" value=1 >";
+	}
+?>
+	<input type="submit" name="buy" value="購入" >
+	<input type="submit" name="cancel" value="キャンセル" >
+</form>
+
+<?php 
+	echo "<hr>";
+	echo "購入予定製品：<br>";
+	foreach( $sids as $sid ){
+			$sql = $db->prepare('SELECT sid, sname FROM shouhin WHERE sid = ?;');
+			$sql->bindValue(1, $sid);
+			$sql->execute();
+			$data = $sql->fetch();
+			echo "{$data['sname']} (商品番号：{$data['sid']})<br>";
+	}
+?>
 </body>
 </html>
