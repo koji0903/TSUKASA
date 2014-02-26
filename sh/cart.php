@@ -41,7 +41,7 @@
 ?>
 <!-- セッションからカート情報を取得 -->
 <?php
-	$cart = $_SESSION['SID'];
+	$cart = (isset($_SESSION['SID'])) ? $_SESSION['SID'] : null;
 ?>
 
 <!-- テーブル表示 -->
