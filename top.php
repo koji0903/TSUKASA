@@ -90,7 +90,7 @@
 	}
 
 	if ( $double_flag ){
-		echo "<p>既にカートに入っています。</p>";
+		echo "<p><font color=red>既にカートに入っています。</font></p>";
 	}
 	// カテゴリ選択
 	if ( isset($_GET['category']) ){
