@@ -53,7 +53,7 @@ disp_header2();
 if ( count($cart) > 0 ) {
 	echo "<table border=1>\n";
 	echo '<thead>';
-	echo '<th>ID(デバッグ)</th>'; // デバッグ
+	// echo '<th>ID(デバッグ)</th>'; // デバッグ
 	echo '<th>商品名</th>';
 	echo '<th>価格</th>';
 	echo '<th>削除</th>';
@@ -67,7 +67,7 @@ if ( count($cart) > 0 ) {
 		$data = $sql->fetch();
 		if ( $data ) {
 			echo "<tr>";
-			echo "<td>", $data['sid'], "</td>"; // デバッグ
+			// echo "<td>", $data['sid'], "</td>"; // デバッグ
 			$sname = (isset($data['sname'])) ? htmlentities(
 				$data['sname'],ENT_QUOTES,'UTF-8') : "";
 			echo "<td>", $sname, "</td>";
