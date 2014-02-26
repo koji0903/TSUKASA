@@ -67,6 +67,7 @@
 </head>
 <body>
 <h1>TSUKASA　Shop</h1>
+<div id="contents">
 <!-- ヘッダー -->
 <?php
 	disp_header();
@@ -218,6 +219,7 @@
 	}
 
 ?>
+</div>
 	</table>
 </body>
 </html>
