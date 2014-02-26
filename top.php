@@ -1,4 +1,4 @@
-<?php 
+<?php
 	session_start();
 	setcookie(session_name(), session_id(), time()+60*5);
 	require_once("./common.php");
@@ -43,7 +43,7 @@
 		//   if ( $key == 'SID' ){
 		// 	  foreach( $value as $sid ){
 		// 	  	echo "$sid, ";
-		// 	  }		  
+		// 	  }
 		//   }
 		// }
 
@@ -106,7 +106,7 @@
 			if ( $data['cid'] == $selected_category ){
 				echo "<option value=\"{$data['cid']}\" selected>{$cname}</option>";
 			}else{
-				echo "<option value=\"{$data['cid']}\">{$cname}</option>";				
+				echo "<option value=\"{$data['cid']}\">{$cname}</option>";
 			}
 		}
 		echo "</select>";
