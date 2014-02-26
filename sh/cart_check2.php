@@ -44,7 +44,7 @@
 	if ( isset($_GET['cancel']) ){
 		// キャンセルの場合は、カート画面へ
 		if ( isset($_GET['debug']) ){
-			header("Location: http://localhost/TSUKASA/sh/cart.php?debug");		
+			header("Location: ./cart.php?debug");		
 			$_SESSION['UID'] = 1;
 		}else{
 		header("Location: cart.php");		
