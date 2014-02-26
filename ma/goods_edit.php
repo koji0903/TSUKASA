@@ -65,7 +65,10 @@
         }
       ?>
       </select><br>
-      説明 <input type="textarea" name="setsumei" value=<?php echo $setsumei ?>><br>
+      説明
+      <br><textarea rows="10" cols="40" name="setsumei">
+        <?php echo $setsumei ?>
+      </textarea><br>
       <p>　■　画像データ(jpg)</p>
 
       <?php
@@ -74,7 +77,6 @@
       }else{
       	echo '<p>no picture</p>';
       }
-
       ?>
 
 		  <input type="file" name="fname"><br><br>

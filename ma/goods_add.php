@@ -47,7 +47,8 @@
         }
       ?>
       </select><br>
-      説明 <input type="text" name="setsumei"><br>
+      説明
+      <br><textarea rows="10" cols="40" name="setsumei"></textarea><br>
       <p>　■　画像データ(jpg)</p>
 		  <input type="file" name="fname"><br><br>
       <input type="submit" value="登録実行"><br>

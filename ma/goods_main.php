@@ -44,10 +44,10 @@
 	    // 価格表示
 	    echo "<td>{$data['kakaku']}</td>";
 	    // 編集リンク
-	    echo '<td><a href="ma/goods_edit.php?sid=' . $data['sid'] . '">';
+	    echo '<td><a href="goods_edit.php?sid=' . $data['sid'] . '">';
 	    echo '<button>' . '編集' . '</button></td>';
 	    //　削除リンク
-	    echo '<td><a href="ma/goods_delete.php?sid=' . $data['sid'] . '">';
+	    echo '<td><a href="goods_del.php?sid=' . $data['sid'] . '">';
 	    echo '<button>' . '削除' . '</button></td>';
 
 	    echo '</tr>';
