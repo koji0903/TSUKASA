@@ -1,5 +1,19 @@
 <?php
-//	require_once("./common.php");
+  require_once("../common.php");
+
+  // ログインチェック
+  session_start();
+  // ログイン状態のチェック
+  if (!isset($_SESSION["UID"])) {
+    header("Location: ../login.php");
+    exit;
+  }else{
+    $gid = getGID($_SESSION['UID']);
+    if( $gid != 0 ){
+      header("Location: ../top.php");
+      exit;
+    }
+  }
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -12,14 +26,17 @@
 <body>
 <h1>TSUKASA　Shop</h1>
 <!-- ヘッダー -->
+  <?php
+    disp_header2();
+  ?>
 
 <!-- コンテンツ -->
 	<?php
 
 		$sid = $_GET['sid'];
 
-    $db = new PDO("mysql:dbname=tsukasadb","root","root");
-    $db->query('SET NAMES utf8;');
+    $db = db();
+
     $sql = $db->prepare('SELECT * FROM shouhin WHERE sid=:sid');
     $sql->bindValue(':sid',$sid);
     $sql->execute();
@@ -83,6 +100,8 @@
       <input type="submit" value="商品情報更新"><br>
     </form>
   </p>
+  <p><a href="goods_main.php"><button>キャンセル</button></a></p>
+
 
 </body>
 </html>
