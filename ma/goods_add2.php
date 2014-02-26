@@ -1,5 +1,19 @@
 <?php
-//	require_once("./common.php");
+	require_once("../common.php");
+
+	// ログインチェック
+  session_start();
+	// ログイン状態のチェック
+	if (!isset($_SESSION["UID"])) {
+	  header("Location: ../login.php");
+	  exit;
+	}else{
+		$gid = getGID($_SESSION['UID']);
+		if( $gid != 0 ){
+		  header("Location: ../top.php");
+		  exit;
+		}
+	}
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -12,9 +26,11 @@
 <body>
 <h1>TSUKASA　Shop</h1>
 <!-- ヘッダー -->
+	<?php
+		disp_header2();
+	?>
 
 <!-- コンテンツ -->
-
   <?php
     $sname = $_POST['sname'];
     $kakaku = $_POST['kakaku'];
@@ -22,8 +38,7 @@
     $cid = $_POST['cid'];
 
     // 共通
-	  $db = new PDO("mysql:dbname=tsukasadb","root","root");
-	  $db->query('SET NAMES utf8;');
+	  $db = db();
 
 		// すでに登録済みでないか確認
 		$sql = $db->prepare('SELECT * FROM shouhin WHERE sname=:sname;');
@@ -58,7 +73,7 @@
 
 				echo '<h3>商品を登録しました</h3><br>';
 				echo '商品ID：' . $data['sid'] . '<br>';
-				echo '商品名：' . $data['sname'] . '<br>';
+				echo '商品名：' . htmlentities( $data['sname'], ENT_QUOTES, "UTF-8" ) . '<br>';
 				echo '価格：' . $data['kakaku'] . '<br>';
 
 		    $tempfile = $_FILES['fname']['tmp_name'];

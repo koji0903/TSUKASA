@@ -1,5 +1,19 @@
 <?php
-//	require_once("./common.php");
+  require_once("../common.php");
+
+  // ログインチェック
+  session_start();
+  // ログイン状態のチェック
+  if (!isset($_SESSION["UID"])) {
+    header("Location: ../login.php");
+    exit;
+  }else{
+    $gid = getGID($_SESSION['UID']);
+    if( $gid != 0 ){
+      header("Location: ../top.php");
+      exit;
+    }
+  }
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -12,11 +26,13 @@
 <body>
 <h1>TSUKASA　Shop</h1>
 <!-- ヘッダー -->
+  <?php
+    disp_header2();
+  ?>
 
 <!-- コンテンツ -->
 	<?php
-    $db = new PDO("mysql:dbname=tsukasadb","root","root");
-    $db->query('SET NAMES utf8;');
+    $db = db();
 
     // カテゴリリストの習得
     $sql = $db->prepare('SELECT * FROM category');
@@ -43,17 +59,19 @@
       カテゴリ <select name="cid">
       <?php
         foreach( $all as $data ){
-          echo '<option value="' . $data['cid'] . '">' . $data['cname'] . '</option>';
+          echo '<option value="' . $data['cid'] . '">' . htmlentities( $data['cname'], ENT_QUOTES, "UTF-8" ) . '</option>';
         }
       ?>
       </select><br>
       説明
-      <br><textarea rows="10" cols="40" name="setsumei"></textarea><br>
+      <br><textarea cols="30" rows="20" name="setsumei"></textarea><br>
       <p>　■　画像データ(jpg)</p>
 		  <input type="file" name="fname"><br><br>
       <input type="submit" value="登録実行"><br>
     </form>
   </p>
+  <p><a href="goods_main.php"><button>キャンセル</button></a></p>
+
 
 
 </body>

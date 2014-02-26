@@ -1,5 +1,19 @@
 <?php
-//	require_once("./common.php");
+  require_once("../common.php");
+
+  // ログインチェック
+  session_start();
+  // ログイン状態のチェック
+  if (!isset($_SESSION["UID"])) {
+    header("Location: ../login.php");
+    exit;
+  }else{
+    $gid = getGID($_SESSION['UID']);
+    if( $gid != 0 ){
+      header("Location: ../top.php");
+      exit;
+    }
+  }
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -12,14 +26,17 @@
 <body>
 <h1>TSUKASA　Shop</h1>
 <!-- ヘッダー -->
+  <?php
+    disp_header2();
+  ?>
 
 <!-- コンテンツ -->
 	<?php
 
 		$sid = $_GET['sid'];
 
-    $db = new PDO("mysql:dbname=tsukasadb","root","root");
-    $db->query('SET NAMES utf8;');
+    $db = db();
+
     $sql = $db->prepare('SELECT * FROM shouhin WHERE sid=:sid');
     $sql->bindValue(':sid',$sid);
     $sql->execute();
@@ -52,22 +69,22 @@
     <p>　■　製品情報を選択</p>
     <form action="goods_edit2.php" method="post" enctype="multipart/form-data">
     	<input type="hidden" name="sid" value=<?php echo $sid ?>>
-      商品名 <input type="text" name="sname" value=<?php echo $sname ?>><br>
+      商品名 <input type="text" name="sname" value=<?php echo htmlentities( $sname, ENT_QUOTES, "UTF-8" ) ?>><br>
       価格 <input type="text" name="kakaku" value=<?php echo $kakaku ?>><br>
       カテゴリ <select name="cid">
       <?php
         foreach( $call as $data ){
         	if( $data['cid'] == $cid ){
-	          echo '<option value="' . $data['cid'] . '"selected >' . $data['cname'] . '</option>';
+	          echo '<option value="' . $data['cid'] . '"selected >' . htmlentities( $data['cname'], ENT_QUOTES, "UTF-8" ) . '</option>';
         	}else{
-	          echo '<option value="' . $data['cid'] . '">' . $data['cname'] . '</option>';
+	          echo '<option value="' . $data['cid'] . '">' . htmlentities( $data['cname'], ENT_QUOTES, "UTF-8" ) . '</option>';
         	}
         }
       ?>
       </select><br>
       説明
-      <br><textarea rows="10" cols="40" name="setsumei">
-        <?php echo $setsumei ?>
+      <br><textarea cols="30" rows="20" name="setsumei">
+        <?php echo htmlentities( htmlentities( $setsumei, ENT_QUOTES, "UTF-8" ), ENT_QUOTES, "UTF-8" ) ?>
       </textarea><br>
       <p>　■　画像データ(jpg)</p>
 
@@ -83,6 +100,8 @@
       <input type="submit" value="商品情報更新"><br>
     </form>
   </p>
+  <p><a href="goods_main.php"><button>キャンセル</button></a></p>
+
 
 </body>
 </html>
