@@ -44,7 +44,7 @@
 		$sql = null;
 
 	  echo '<table>';
-	  echo '<tr><th>商品名</th><th>カテゴリ</th><th>価格</th><th>編集</th><th>削除</th></tr>';
+	  echo '<tr><th>商品名</th><th>カテゴリ</th><th>価格</th><th>画像</th><th>編集</th><th>削除</th></tr>';
 
 	  foreach( $all as $data ){
 	    echo '<tr>';
@@ -58,6 +58,13 @@
 	    }
 	    // 価格表示
 	    echo "<td>{$data['kakaku']}</td>";
+	    //　画像表示
+			$img = '../img/' . $data['sid'] . '.jpg' ;
+			if ( file_exists($img) ){
+				echo "<td><img src=\"${img}\" height=\"150\" width=\"200\"></td>";
+			}else{
+				echo "<td>no picture</td>";
+			}
 	    // 編集リンク
 	    echo '<td><a href="goods_edit.php?sid=' . $data['sid'] . '">';
 	    echo '<button>' . '編集' . '</button></td>';
