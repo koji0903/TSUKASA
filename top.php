@@ -12,11 +12,18 @@
 		$debug = "";
 	}
 
+	// ログインチェック
 	if ( isset($_SESSION['UID']) ){
 		$uid = $_SESSION['UID'];
-		$login = "true";
+		$gid = getGID($uid);
+		if ( $gid != 0 ){
+			$login = "true";
+		}else{
+			$login = "false";
+		}
 	}else{
-		$uid = 0;		
+		$uid = 0;
+		$gid = 1;
 		$login = "false";
 	}
 
@@ -61,10 +68,19 @@
 	$db = db();
 
 	// ログイン状態表示
-	if ( $login == "true" ){
-		echo "<p>ログイン中</p>";
+	if ( $gid == 0 ){
+		$group = "管理者";
 	}else{
-		echo "<p>ログインしていません</p>";
+		$group = "ユーザ";
+	}
+	if ( $login == "true" ){
+		echo "<p>ログイン中({$group})</p>";
+	}else{
+		if ( $gid == 0 ){
+			echo "<p>管理者でログイン中</p>";
+		}else{
+			echo "<p>ログインしていません</p>";
+		}
 	}
 
 	// カテゴリ選択

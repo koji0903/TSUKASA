@@ -10,8 +10,8 @@
 		$gid = 1;
 		$_GET['s_type'] = "daibiki";
 		$debug = "&debug";
-//		$_SESSION['SID'] = array(2,7,8,13);
-		$_SESSION['SID'] = array();
+		$_SESSION['SID'] = array(2,7,8,13,20);
+//		$_SESSION['SID'] = array();
 	}else{
 		$gid = getGID($uid);		
 	}
