@@ -12,7 +12,11 @@
 <body>
 <h1>TSUKASA　Shop</h1>
 <!-- ヘッダー -->
+<?php
+	disp_header2();
+?>
 
+<!-- コンテンツ -->
 <?php
 # 6-2
 echo "<h2>カテゴリ追加</h2>";

@@ -13,6 +13,11 @@
 <h1>TSUKASA　Shop</h1>
 <!-- ヘッダー -->
 <?php
+	disp_header2();
+?>
+
+<!-- コンテンツ -->
+<?php
 # 6-4(ファイル追加分)
 # 削除２
 
@@ -55,8 +60,6 @@ if( ! $sql->execute() ) {
 
 header("Location: category_main.php");
 ?>
-
-<!-- コンテンツ -->
 
 </body>
 </html>

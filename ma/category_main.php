@@ -13,6 +13,11 @@
 <h1>TSUKASA　Shop</h1>
 <!-- ヘッダー -->
 <?php
+	disp_header2();
+?>
+
+<!-- コンテンツ -->
+<?php
 # 6-1
 echo "<h2>カテゴリ操作</h2>";
 
@@ -86,8 +91,6 @@ echo "</table>";
 echo "<p></p>";
 echo "<td><a href=\"../maintenance.php\" >管理画面へ</td>";
 ?>
-
-<!-- コンテンツ -->
 
 </body>
 </html>
