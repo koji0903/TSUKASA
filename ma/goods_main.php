@@ -1,5 +1,6 @@
 <?php
 	require_once("../common.php");
+	setcookie(session_name(), session_id(), time()+60);
 
 	// ログインチェック
   session_start();
@@ -37,7 +38,7 @@
 	<?php
 
 	  $db = db();
-		$sql = $db->prepare('SELECT sid,sname,kakaku,cname FROM shouhin JOIN category ON shouhin.cid=category.cid;');
+		$sql = $db->prepare('SELECT sid,sname,kakaku,cname FROM shouhin JOIN category ON shouhin.cid=category.cid ORDER BY kakaku DESC;');
 		$sql->execute();
 
 		$all = $sql->fetchAll();

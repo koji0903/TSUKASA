@@ -1,5 +1,6 @@
 <?php
   require_once("../common.php");
+  setcookie(session_name(), session_id(), time()+60);
 
   // ログインチェック
   session_start();
