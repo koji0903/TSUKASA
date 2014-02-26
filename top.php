@@ -156,6 +156,11 @@
 			}
 			echo "</tr>";
 			foreach ( $all as $data ){
+				if ( $selected_category != "all" ){
+					if ( $data['cname'] == null ){
+						continue;
+					}
+				}
 				// XSS対策
 				$sname = htmlentities($data['sname'],ENT_QUOTES, "UTF-8");
 				if ( $data['cname'] != null ){
