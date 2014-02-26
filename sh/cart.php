@@ -85,8 +85,8 @@ if ( count($cart) > 0 ) {
 	送金タイプ:
 	<select name="s_type">
 		<option value="" selected></option>
-		<option value="振込">振込</option>
-		<option value="代引き">代引き</option>
+		<option value="soukin">振込</option>
+		<option value="daibiki">代引き</option>
 	</select><br>
 	<input type="submit" value="確認">
 </form>
