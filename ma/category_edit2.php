@@ -50,6 +50,18 @@ $cname	= htmlentities($_GET['cname'], ENT_QUOTES, "UTF-8");
 $db = db();
 #--------------------------------------------------------
 # オブジェクト作成
+$sql = $db->prepare('SELECT * FROM category WHERE cname=?');
+$sql->bindValue(1, $cname);
+$sql->execute();
+#--------------------------------------------------------
+# 既にカテゴリ名が存在する場合
+if( $sql->fetch() ) {
+	# 既にカテゴリ名が存在する場合
+	header("Location: category_edit.php?err");
+	exit;
+}
+#--------------------------------------------------------
+# オブジェクト作成
 $sql = $db->prepare('UPDATE category SET cname=? WHERE cid=?');
 $sql->bindValue(1, $cname);
 $sql->bindValue(2, $cid);
