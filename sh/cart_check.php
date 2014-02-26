@@ -10,7 +10,7 @@
 		$gid = 1;
 		$_GET['s_type'] = "daibiki";
 		$debug = "&debug";
-		$_SESSION['SID'] = array(2,7,8,13,20);
+		$_SESSION['SID'] = array(2,7,13,4,11);
 //		$_SESSION['SID'] = array();
 	}else{
 		$gid = getGID($uid);		
@@ -73,10 +73,14 @@
 	$souryou = 0;
 	if ( $sid_count != 0 ){
 		if ( $shoukei < 10000 ){
-			if( $s_type == "furikomi" ){
+			if( $s_type == "daibiki" ){
 				$souryou = 1300;
-			}else{
+			}else if( $s_type == "furikomi" ) {
 				$souryou = 1000;
+			}
+		}else{
+			if( $s_type == "daibiki" ){
+				$souryou = 300;
 			}
 		}
 	}
@@ -88,7 +92,12 @@
 	echo "<td>{$shoukei}円</td>";
 	echo "</tr>";
 	echo "<th>送料</th>";
-	echo "<td>{$souryou}円</td>";
+	if ( $s_type == "daibiki" ){
+		echo "<td>{$souryou}円(代引きにより+300円)</td>";
+
+	}else{
+		echo "<td>{$souryou}円</td>";
+	}
 	echo "<tr>";
 	echo "<th>合計</th>";
 	echo "<td>{$total}円</td>";
@@ -115,11 +124,12 @@
 	echo "<hr>";
 	echo "購入予定製品：<br>";
 	foreach( $sids as $sid ){
-			$sql = $db->prepare('SELECT sid, sname FROM shouhin WHERE sid = ?;');
+			$sql = $db->prepare('SELECT sid, sname, kakaku FROM shouhin WHERE sid = ?;');
 			$sql->bindValue(1, $sid);
 			$sql->execute();
 			$data = $sql->fetch();
-			echo "{$data['sname']} (商品番号：{$data['sid']})<br>";
+			$sname = htmlentities($data['sname'],ENT_QUOTES, "UTF-8");
+			echo "{$sname} (価格：{$data['kakaku']}、商品番号：{$data['sid']})<br>";
 	}
 ?>
 </body>
