@@ -28,11 +28,17 @@
 	}
 
 	// セッション更新
+	$double_flag = false;
 	if ( isset($_GET['buy']) ){
 		if ( isset($_SESSION['SID']) ){
 			$ary = $_SESSION['SID'];
 		}else{
 			$ary = array();
+		}
+		foreach ( $ary as $sid_already ){
+			if ( $sid_already == $_GET['buy'] ){
+				$double_flag = true;
+			}
 		}
 		array_push( $ary, $_GET['buy']);
 		$ary = array_unique($ary);
@@ -83,6 +89,9 @@
 		}
 	}
 
+	if ( $double_flag ){
+		echo "<p>既にカートに入っています。</p>";
+	}
 	// カテゴリ選択
 	if ( isset($_GET['category']) ){
 		$selected_category = $_GET['category']; // 初期値
@@ -134,7 +143,9 @@
 	// テーブル表示
 	if ( $count == 0 ){
 		echo "<p>選択されたカテゴリに該当する製品はありません</p>";
-	}else{
+	}
+	else
+	{
 		// 一覧表示
 		if ( $selected_category == "all" ){
 			// 全部表示
