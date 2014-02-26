@@ -3,8 +3,10 @@
 	setcookie(session_name(), session_id(), time()+60);
 	require_once("../common.php");
 	// debug
-	$_SESSION['UID'] = 1;
-	if ( isset($_GET['debug']) ) {
+	if ( isset($_GET['debug_uid']) ) {
+		$_SESSION['UID'] = 1;
+	}
+	if ( isset($_GET['debug_sid']) ) {
 		$_SESSION['SID'] = array(5, 6, 7, 8, 9);
 	}
 	if ( ! isset($_SESSION['UID']) ) {
