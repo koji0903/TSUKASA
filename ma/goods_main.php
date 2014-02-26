@@ -38,7 +38,7 @@
 	<?php
 
 	  $db = db();
-		$sql = $db->prepare('SELECT sid,sname,kakaku,cname FROM shouhin JOIN category ON shouhin.cid=category.cid ORDER BY kakaku DESC;');
+		$sql = $db->prepare('SELECT sid,sname,kakaku,cname FROM shouhin LEFT JOIN category ON shouhin.cid=category.cid ORDER BY kakaku DESC;');
 		$sql->execute();
 
 		$all = $sql->fetchAll();
@@ -52,8 +52,8 @@
 	    // 商品名表示
 	    echo '<td>' . htmlentities( $data['sname'], ENT_QUOTES, "UTF-8" ) . '</td>';
 	    // カテゴリ表示
-	    if( $data['cname'] == NULL ){
-	    	echo "指定なし";
+	    if( empty($data['cname']) ){
+	    	echo "<td>指定なし</td>";
 	    }else{
 		    echo '<td>' . htmlentities( $data['cname'], ENT_QUOTES, "UTF-8" ) . '</td>';
 	    }
