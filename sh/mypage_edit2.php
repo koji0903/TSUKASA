@@ -1,4 +1,5 @@
 <?php 
+	session_start();
 	require_once("./../common.php");
 ?>
 
@@ -13,7 +14,6 @@
 <h1>TSUKASA　Shop</h1>
 <!-- ヘッダー -->
 <?php
-	session_start();
 	disp_header2();
 ?>
 <!-- コンテンツ -->
@@ -27,7 +27,7 @@
 		}
 		
 	}else{
-		header("location:http://localhost/TSUKASA/login.php");
+		header("location:../login.php");
 	}
 
 	$uname =$_POST['uname'] ;
@@ -37,19 +37,19 @@
 
 	$pattern="^(\s|　)+$"; 
 	if(mb_ereg_match($pattern,$uname)||mb_ereg_match($pattern,$mail)||mb_ereg_match($pattern,$address)||mb_ereg_match($pattern,$password)){
-		header("location:http:./mypage_edit.php?err_flag=1") ;
+		header("location:./mypage_edit.php?err_flag=1") ;
 		exit ;
 	}
 
 
 	if (empty($_POST['uname']) || empty($_POST['mail']) || empty($_POST['address'])){
-		header("location:http:./mypage_edit.php?err_flag=1") ;
+		header("location:./mypage_edit.php?err_flag=1") ;
 		exit ;
 	}
 
 
 	if (empty($uid) && empty($uname) &&empty($mail) &&empty($address)){
-		header("location:http:./mypage_edit.php");
+		header("location:./mypage_edit.php");
 	}else {
 		$db = db();
 		if(empty($password)){ 

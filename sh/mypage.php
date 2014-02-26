@@ -1,5 +1,6 @@
 <?php
 	require_once("./../common.php");
+	session_start();
 //	session_start();   		//for debug
 //	$_SESSION['UID'] = 1 ; 	//for debug
 ?>
@@ -15,7 +16,6 @@
 <h1>TSUKASA　Shop</h1>
 <!-- ヘッダー -->
 <?php
-	session_start();
 	disp_header2();
 ?>
 
