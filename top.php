@@ -14,8 +14,10 @@
 
 	if ( isset($_SESSION['UID']) ){
 		$uid = $_SESSION['UID'];
+		$login = "true";
 	}else{
 		$uid = 0;		
+		$login = "false";
 	}
 
 	// セッション更新
@@ -55,6 +57,12 @@
 <?php
 	$db = db();
 
+	// ログイン状態表示
+	if ( $login == "true" ){
+		echo "<p>ログイン中</p>";
+	}else{
+		echo "<p>ログインしていません</p>";
+	}
 
 	// カテゴリ選択
 	if ( isset($_GET['category']) ){
@@ -70,15 +78,16 @@
 		echo "<p>カテゴリー選択";
 		echo "<select name=\"category\">";
 		if ( $selected_category == "all" ){
-			echo "<option value=\"all\" selected>全部</option>";
+			echo "<option value=\"all\" selected>ALL</option>";
 		}else{
-			echo "<option value=\"all\">全部</option>";
+			echo "<option value=\"all\">ALL</option>";
 		}
 		foreach ( $all as $data ){
+			$cname = htmlentities($data['cname'],ENT_QUOTES, "UTF-8");
 			if ( $data['cid'] == $selected_category ){
-				echo "<option value=\"{$data['cid']}\" selected>{$data['cname']}</option>";
+				echo "<option value=\"{$data['cid']}\" selected>{$cname}</option>";
 			}else{
-				echo "<option value=\"{$data['cid']}\">{$data['cname']}</option>";				
+				echo "<option value=\"{$data['cid']}\">{$cname}</option>";				
 			}
 		}
 		echo "</select>";
@@ -91,55 +100,84 @@
 	}
 	$sql = null;
 
-	// 一覧表示
+	// 選択されたカテゴリの数をカウント
 	if ( $selected_category == "all" ){
-		// 全部表示
-		$sql = $db->prepare('SELECT sid, sname, category.cname as cname, kakaku, setsumei FROM shouhin, category WHERE shouhin.cid = category.cid');
+		$count = 100; // 適当な数値
 	}else{
-		// 選択されたカテゴリのみを表示
-		$sql = $db->prepare('SELECT sid, sname, category.cname as cname, kakaku, setsumei FROM shouhin, category WHERE shouhin.cid = category.cid AND shouhin.cid = ?');
+		$sql = $db->prepare('SELECT count(*) FROM shouhin WHERE cid = ?');
 		$sql->bindValue(1, $selected_category);
-	}
-	if ( $sql->execute() ){
-		// "shouhin"テーブルからデータを取得
-		echo "<table>";
-		$all = $sql->fetchAll(PDO::FETCH_ASSOC);
-		echo "<tr><th>商品名</th><th>カテゴリ</th><th>価格</th><th>説明</th><th>画像</th>";
-		if ( $uid != 0 ){
-			echo "<th>カートへ追加</th>";
+		if ( $sql->execute() ){
+			$count = $sql->fetchColumn();
 		}
-		echo "</tr>";
-		foreach ( $all as $data ){
-			echo "<tr>";
-			echo "<td>{$data['sname']}</td>";
-			echo "<td>{$data['cname']}</td>";
-			echo "<td>{$data['kakaku']}円</td>";
-			echo "<td class=\"setsumei\">{$data['setsumei']}円</td>";
-			// 画像ファイルチェックを行って出力
-			$img = "img/" . $data['sid'] . ".jpg" ;
-			if ( file_exists($img) ){
-				echo "<td><img src=\"${img}\" height=\"150\" width=\"200\"></td>";
-			}else{
-				echo "<td>no picture</td>";
-			}
+		$sql = null;
+	}
 
-			// ログイン時には、"カートへ追加"のリンク出力。クリック時にはsid情報を持ってリダイレクト
-			if ( $uid != 0 ){
-				echo "<td>";
-				if ( $selected_category == "all" ){
-					echo "<a href=\"./top.php?{$debug}category=all&buy={$data['sid']}\"><button>カートへ追加</button></a>";
-				}else{
-					echo "<a href=\"./top.php?{$debug}category={$selected_category}&buy={$data['sid']}\"><button>カートへ追加</button></a>";
-				}
-				echo "</td>";
+	// テーブル表示
+	if ( $count == 0 ){
+		echo "<p>選択されたカテゴリに該当する製品はありません</p>";
+	}else{
+		// 一覧表示
+		if ( $selected_category == "all" ){
+			// 全部表示
+//			$sql = $db->prepare('SELECT sid, sname, category.cname as cname, kakaku, setsumei FROM shouhin, category WHERE shouhin.cid = category.cid');
+			$sql = $db->prepare('SELECT sid, sname, category.cname as cname, kakaku, setsumei FROM shouhin LEFT JOIN category ON shouhin.cid = category.cid');
+		}else{
+			// 選択されたカテゴリのみを表示
+//			$sql = $db->prepare('SELECT sid, sname, category.cname as cname, kakaku, setsumei FROM shouhin, category WHERE shouhin.cid = category.cid AND shouhin.cid = ?');
+			$sql = $db->prepare('SELECT sid, sname, category.cname as cname, kakaku, setsumei FROM shouhin LEFT JOIN category ON shouhin.cid = category.cid AND shouhin.cid = ?');
+			$sql->bindValue(1, $selected_category);
+		}
+		if ( $sql->execute() ){
+			// "shouhin"テーブルからデータを取得
+			echo "<table>";
+			$all = $sql->fetchAll(PDO::FETCH_ASSOC);
+			echo "<tr><th>商品名</th><th>カテゴリ</th><th>価格</th><th>説明</th><th>画像</th>";
+			if ( $login == "true" ){
+				echo "<th>カートへ追加</th>";
 			}
 			echo "</tr>";
+			foreach ( $all as $data ){
+				// XSS対策
+				$sname = htmlentities($data['sname'],ENT_QUOTES, "UTF-8");
+				if ( $data['cname'] != null ){
+					$cname = htmlentities($data['cname'],ENT_QUOTES, "UTF-8");
+				}else{
+					$cname = "なし";
+				}
+				$kakaku = htmlentities($data['kakaku'],ENT_QUOTES, "UTF-8");
+				$setsumei = htmlentities($data['setsumei'],ENT_QUOTES, "UTF-8");
+
+				echo "<tr>";
+				echo "<td>{$sname}</td>";
+				echo "<td>{$cname}</td>";
+				echo "<td>{$kakaku}円</td>";
+				echo "<td class=\"setsumei\">{$setsumei}</td>";
+				// 画像ファイルチェックを行って出力
+				$img = "img/" . $data['sid'] . ".jpg" ;
+				if ( file_exists($img) ){
+					echo "<td><img src=\"${img}\" height=\"150\" width=\"200\"></td>";
+				}else{
+					echo "<td>no picture</td>";
+				}
+
+				// ログイン時には、"カートへ追加"のリンク出力。クリック時にはsid情報を持ってリダイレクト
+				if ( $login == "true" ){
+					echo "<td>";
+					if ( $selected_category == "all" ){
+						echo "<a href=\"./top.php?{$debug}category=all&buy={$data['sid']}\"><button>カートへ追加</button></a>";
+					}else{
+						echo "<a href=\"./top.php?{$debug}category={$selected_category}&buy={$data['sid']}\"><button>カートへ追加</button></a>";
+					}
+					echo "</td>";
+				}
+				echo "</tr>";
+			}
+			echo "</table>";
 		}
-		echo "</table>";
-	}
-	else
-	{
-		echo "<p>DBアクセスエラー</p>";
+		else
+		{
+			echo "<p>DBアクセスエラー</p>";
+		}
 	}
 
 ?>
