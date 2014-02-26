@@ -1,5 +1,6 @@
 <?php 
-	require_once("../common.php");
+session_start();
+require_once("../common.php");
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -26,7 +27,6 @@ echo "<h2>カテゴリ編集</h2>";
 #$gid = 0;
 #--------------------------------------------------------
 #if( ! isset($uid) ) {
-session_start();
 if( ! isset($_SESSION['UID']) ) {
 #	echo "uidがありません。ページ１へ";
 	header("Location: ../login.php");
