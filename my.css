@@ -62,7 +62,10 @@ table{
 	border-collapse: collapse;
 	border-spacing: 1px;
 	border-color: black;
-	width: 900px;
+}
+
+table.shouhin_table{
+	width: 900px;	
 }
 
 th,tr,td{	
@@ -121,8 +124,8 @@ a img{
 	margin-right: 50px;
 }
 
-#contents{
+/*#contents{
 	  width: 900px;  
     margin: 0 auto;  
     text-align: center;  
-  }
+  }*/

@@ -40,6 +40,7 @@
 <link rel="stylesheet" href="../my.css" content="text/css">
 </head>
 <body>
+<div id="contents">
 <h1>TSUKASA　Shop</h1>
 <!-- ヘッダー -->
 <?php
@@ -138,5 +139,6 @@
 			echo "{$sname} (価格：{$data['kakaku']}、商品番号：{$data['sid']})<br>";
 	}
 ?>
+</div>
 </body>
 </html>

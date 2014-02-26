@@ -35,9 +35,12 @@
 <link rel="stylesheet" href="../my.css" content="text/css">
 </head>
 <body>
+<div id="contents">
 <h1>TSUKASA　Shop</h1>
 <!-- ヘッダー -->
-
+<?php
+	disp_header2();
+?>
 <!-- コンテンツ -->
 <?php
 	// キャンセル

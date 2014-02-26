@@ -153,16 +153,16 @@
 		if ( $selected_category == "all" ){
 			// 全部表示
 //			$sql = $db->prepare('SELECT sid, sname, category.cname as cname, kakaku, setsumei FROM shouhin, category WHERE shouhin.cid = category.cid');
-			$sql = $db->prepare('SELECT sid, sname, category.cname as cname, kakaku, setsumei FROM shouhin LEFT JOIN category ON shouhin.cid = category.cid');
+			$sql = $db->prepare('SELECT sid, sname, category.cname as cname, kakaku, setsumei FROM shouhin LEFT JOIN category ON shouhin.cid = category.cid ORDER BY shouhin.kakaku DESC');
 		}else{
 			// 選択されたカテゴリのみを表示
 //			$sql = $db->prepare('SELECT sid, sname, category.cname as cname, kakaku, setsumei FROM shouhin, category WHERE shouhin.cid = category.cid AND shouhin.cid = ?');
-			$sql = $db->prepare('SELECT sid, sname, category.cname as cname, kakaku, setsumei FROM shouhin LEFT JOIN category ON shouhin.cid = category.cid AND shouhin.cid = ?');
+			$sql = $db->prepare('SELECT sid, sname, category.cname as cname, kakaku, setsumei FROM shouhin LEFT JOIN category ON shouhin.cid = category.cid AND shouhin.cid = ?  ORDER BY shouhin.kakaku DESC');
 			$sql->bindValue(1, $selected_category);
 		}
 		if ( $sql->execute() ){
 			// "shouhin"テーブルからデータを取得
-			echo "<table>";
+			echo "<table class=\"shouhin_table\">";
 			$all = $sql->fetchAll(PDO::FETCH_ASSOC);
 			echo "<tr><th>商品名</th><th>カテゴリ</th><th>価格</th><th>説明</th><th>画像</th>";
 			if ( $login == "true" ){
