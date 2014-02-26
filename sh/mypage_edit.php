@@ -1,5 +1,6 @@
 <?php 
 	require_once("./../common.php");
+	session_start();
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -13,7 +14,6 @@
 <h1>TSUKASA　Shop</h1>
 <!-- ヘッダー -->
 <?php
-	session_start();
 	disp_header2();
 ?>
 <!-- コンテンツ -->
@@ -24,11 +24,11 @@
 		$uid = $_SESSION['UID']  ;
 		$gid=getGID($uid);
 		if (!$gid){
-			header("location:http:../maintenance.php") ;
+			header("location:../maintenance.php") ;
 		}
 		
 	}else{
-		header("location:http:../login.php");
+		header("location:../login.php");
 	}
 	
 	$db = db();
