@@ -17,8 +17,8 @@
 <?php 
 	session_start();		
 
-	if(isset($_SESSION['uid'])){
-		$uid = $_SESSION['uid']  ;
+	if(isset($_SESSION['UID'])){
+		$uid = $_SESSION['UID']  ;
 		$gid=getGID($uid);
 		if (!$gid){
 			header("location:http:../maintenance.php") ;
@@ -44,13 +44,16 @@
 				echo "<tr><td>住所</td><td>$address2</td></tr>" ;
 				$mail2=htmlentities($data['mail'],ENT_QUOTES,'UTF-8') ;
 				echo "<tr><td>e-mail</td><td>$mail2</td></tr>";
+				echo "<tr><td>パスワード</td><td>非表示</td></tr>";
 		}
 	echo '</table>' ;
+	$sql=null ;
 ?>
 
-<br>
+<br><br>
+
 　<a href="mypage_edit.php" >登録情報変更</a><br>
-  <a href="mypage.php" >マイページ</a>
+  <a href="mypage.php" >戻る</a>
 
 </body>
 </html>

@@ -1,7 +1,7 @@
 <?php 
 	require_once("./../common.php");
-//	session_start();   		//for debug
-//	$_SESSION['uid'] = 1 ; 	//for debug
+	session_start();   		//for debug
+	$_SESSION['UID'] = 1 ; 	//for debug
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -17,10 +17,10 @@
 
 <!-- コンテンツ -->
 <?php 
-	session_start();		
+//	session_start();		
 
-	if(isset($_SESSION['uid'])){
-		$uid = $_SESSION['uid']  ;
+	if(isset($_SESSION['UID'])){
+		$uid = $_SESSION['UID']  ;
 		$gid=getGID($uid);
 		if (!$gid){
 			header("location:http:../maintenance.php") ;
@@ -55,7 +55,7 @@
 			echo '</tr>';
 		}
 	echo '</table>';
-
+	$sql=null ;
 ?>
 
 <br>

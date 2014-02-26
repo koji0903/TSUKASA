@@ -18,8 +18,8 @@
 
 	session_start();		
 
-	if(isset($_SESSION['uid'])){
-		$uid = $_SESSION['uid']  ;
+	if(isset($_SESSION['UID'])){
+		$uid = $_SESSION['UID']  ;
 		$gid=getGID($uid);
 		if (!$gid){
 			header("location:../maintenance.php") ;
@@ -29,36 +29,41 @@
 		header("location:http://localhost/TSUKASA/login.php");
 	}
 
+	if (empty($_POST['uname']) || empty($_POST['mail']) || empty($_POST['address'])){
+		echo "err" ;
+		header("location:http:./mypage_edit.php?err_flag=1") ;
+		exit;
+	}
 	$uname =$_POST['uname'] ;
 	$password =$_POST['password'] ;
 	$mail =$_POST['mail'] ;
 	$address =$_POST['address'] ;
 
-	if (!empty($uid) && !empty($uname) &&!empty($mail) &&!empty($address)){
+	if (empty($uid) && empty($uname) &&empty($mail) &&empty($address)){
+		header("location:http:./mypage_edit.php");
+	}else {
 		$db = db();
-		if(!empty($password)){ 
+		if(empty($password)){ 
+			$sql = $db->prepare("UPDATE user SET uname=?,mail=?,address=? WHERE uid=?");
+			$sql->bindValue(1,$uname);
+			$sql->bindValue(2,$mail);
+			$sql->bindValue(3,$address);
+			$sql->bindValue(4,$uid) ;
+		}else{
 			$sql = $db->prepare("UPDATE user SET uname=?,password=?,mail=?,address=? WHERE uid=?");
 			$sql->bindValue(1,$uname);
 			$sql->bindValue(2,md5($password));
 			$sql->bindValue(3,$mail);
 			$sql->bindValue(4,$address);
 			$sql->bindValue(5,$uid) ;
-		}else{
-			$sql = $db->prepare("UPDATE user SET uname=?,mail=?,address=? WHERE uid=?");
-			$sql->bindValue(1,$uname);
-			$sql->bindValue(2,$mail);
-			$sql->bindValue(3,$address);
-			$sql->bindValue(4,$uid) ;
 		}
 		if ($sql->execute()){
 			header("location:http:./mypage_show.php");
 		}else {
 			header("location:http:./mypage_edit.php");
 		}
-	}else {
-		header("location:http:./mypage_edit.php");
 	}
-
+	$sql=null ;
 ?>
 
 

@@ -18,8 +18,8 @@
 <?php 
 	session_start();		
 
-	if(isset($_SESSION['uid'])){
-		$uid = $_SESSION['uid']  ;
+	if(isset($_SESSION['UID'])){
+		$uid = $_SESSION['UID']  ;
 		$gid=getGID($uid);
 		if (!$gid){
 			header("location:http:../maintenance.php") ;
@@ -46,6 +46,10 @@
 
 	echo '</table>';
 
+	if(isset($_GET['err_flag'])){
+		echo "登録内容にエラーがあります";
+	}
+	$sql=null ;
 ?>
 <form method="POST" action="mypage_edit2.php">
 	<input type="hidden" name="uid" value="<?php echo $uid2; ?>">
@@ -53,7 +57,7 @@
 	パスワード<input type="password" name="password" value=""><br>
 	e-mail<input type="text" name="mail" value="<?php echo $mail2; ?>"><br>
 	住所<input type="text" name="address" value="<?php echo $address2; ?>"><br>
-	<input type="submit" value="確認"></a>
+	<input type="submit" value="登録"></a>
 </form>
 
 　<a href="mypage_show.php" >登録情報表示</a><br>
