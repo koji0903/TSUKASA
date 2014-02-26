@@ -39,6 +39,7 @@
 		<input type="submit" value="ログイン">
 	</form>
 	<p><a href="registry.php">アカウント登録</a><p>
+	<p><a href="top.php">商品一覧</a><p>
 
 </body>
 </html>
