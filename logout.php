@@ -1,6 +1,12 @@
 <?php 
 	session_start();
-	setcookie(session_name(), session_id(), time() - 1000);
+	$_SESSION = array();
+
+	if (isset($_COOKIE["PHPSESSID"])) {
+		setcookie("PHPSESSID", '', time() - 1800, '/');
+	}
+
+	session_destroy();
 	header("Location: ./login.php");
 	exit;
 
