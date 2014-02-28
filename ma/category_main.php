@@ -1,4 +1,5 @@
-<?php 
+<?php
+# git test 2014/02/28
 session_start();
 require_once("../common.php");
 ?>
